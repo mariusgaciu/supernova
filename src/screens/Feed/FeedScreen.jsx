@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Icon } from '@components';
 function FeedScreen(props) {
   return (
     <View style={styles.mainContainer}>
       <Text>FeedScreen</Text>
+      <Icon />
     </View>
   );
 }
