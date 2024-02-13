@@ -1,3 +1,4 @@
-import { SCREEN_NAMES, TAB_NAMES, TAB_TITLE } from './Constants';
+import { SCREEN_NAME, TAB_NAME, TAB_TITLE } from './Constants';
+import { Colors } from './Colours';
 
-export { SCREEN_NAMES, TAB_NAMES, TAB_TITLE };
+export { Colors, SCREEN_NAME, TAB_NAME, TAB_TITLE };

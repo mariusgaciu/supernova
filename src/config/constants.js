@@ -1,4 +1,5 @@
-export const SCREEN_NAMES = {
+export const SCREEN_NAME = {
+  TABS: 'Tabs',
   ACCOUNT: 'AccountScreen',
   FEED: 'FeedScreen',
   FEED_LIST: 'FeedListScreen',
@@ -7,7 +8,7 @@ export const SCREEN_NAMES = {
   SEARCH: 'SearchScreen',
 };
 
-export const TAB_NAMES = {
+export const TAB_NAME = {
   FEED: 'FeedTab',
   SEARCH: 'SearchTab',
   NOTIFICATIONS: 'NotificationsTab',
