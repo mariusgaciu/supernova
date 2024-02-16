@@ -5,11 +5,7 @@ import { Colors } from '@config';
 export const useTheme = () => {
   const systemTheme = useColorScheme();
 
-  const theme = styles[systemTheme];
+  const theme = Colors[systemTheme];
 
   return { theme };
 };
-
-const styles = StyleSheet.create({
-  ...Colors,
-});

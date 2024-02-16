@@ -26,8 +26,11 @@ const NavTabs = () => {
         name={TAB_NAME.FEED}
         options={{
           title: TAB_TITLE.FEED,
-          tabBarIcon: ({ color }) => (
-            <Icon name={'newspaper-outline'} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Icon
+              name={focused ? 'newspaper-fill' : 'newspaper-outline'}
+              color={color}
+            />
           ),
         }}
       />
@@ -36,8 +39,11 @@ const NavTabs = () => {
         name={TAB_NAME.SEARCH}
         options={{
           title: TAB_TITLE.SEARCH,
-          tabBarIcon: ({ color }) => (
-            <Icon name={'search-outline'} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Icon
+              name={focused ? 'search-fill' : 'search-outline'}
+              color={color}
+            />
           ),
         }}
       />
@@ -46,8 +52,11 @@ const NavTabs = () => {
         name={TAB_NAME.NOTIFICATIONS}
         options={{
           title: TAB_TITLE.NOTIFICATIONS,
-          tabBarIcon: ({ color }) => (
-            <Icon name={'notifications-outline'} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Icon
+              name={focused ? 'notifications-fill' : 'notifications-outline'}
+              color={color}
+            />
           ),
         }}
       />
@@ -56,8 +65,11 @@ const NavTabs = () => {
         component={AccountScreen}
         options={{
           title: TAB_TITLE.ACCOUNT,
-          tabBarIcon: ({ color }) => (
-            <Icon name={'person-outline'} color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Icon
+              name={focused ? 'person-fill' : 'person-outline'}
+              color={color}
+            />
           ),
         }}
       />
