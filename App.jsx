@@ -1,27 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import * as SplashScreen from 'expo-splash-screen';
 
 import { useAppInit } from '@hooks';
 import { useTheme } from '@hooks';
 import { NavMain } from '@navigation';
+
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
   const { isAppReady, onLayoutRootView } = useAppInit();
-  const { theme } = useTheme();
+  const { defaultStyles } = useTheme();
+
+  if (!isAppReady) return null;
 
   return (
-    <NavigationContainer theme={theme.navigation}>
-      <StatusBar style="auto" />
-      <NavMain />
-    </NavigationContainer>
+    <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <NavigationContainer theme={defaultStyles.navigation}>
+        <StatusBar style="auto" />
+        <NavMain />
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

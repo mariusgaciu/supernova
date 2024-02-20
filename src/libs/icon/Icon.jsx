@@ -1,30 +1,30 @@
 import React from 'react';
 import {
-  SVGDiceOutline,
-  SVGNewspaperFill,
-  SVGNewspaperOutline,
-  SVGNotificationsFill,
-  SVGNotificationsOutline,
-  SVGPersonCircleOutline,
-  SVGPersonFill,
-  SVGPersonOutline,
-  SVGSearchFill,
-  SVGSearchOutline,
+  DiceOutline,
+  NewspaperFill,
+  NewspaperOutline,
+  NotificationsFill,
+  NotificationsOutline,
+  PersonCircleOutline,
+  PersonFill,
+  PersonOutline,
+  SearchFill,
+  SearchOutline,
 } from '@assets';
 
 import { useTheme } from '@hooks';
 
 const icons = {
-  'dice-outline': SVGDiceOutline,
-  'newspaper-fill': SVGNewspaperFill,
-  'newspaper-outline': SVGNewspaperOutline,
-  'notifications-fill': SVGNotificationsFill,
-  'notifications-outline': SVGNotificationsOutline,
-  'person-circle-outline': SVGPersonCircleOutline,
-  'person-fill': SVGPersonFill,
-  'person-outline': SVGPersonOutline,
-  'search-fill': SVGSearchFill,
-  'search-outline': SVGSearchOutline,
+  'dice-outline': DiceOutline,
+  'newspaper-fill': NewspaperFill,
+  'newspaper-outline': NewspaperOutline,
+  'notifications-fill': NotificationsFill,
+  'notifications-outline': NotificationsOutline,
+  'person-circle-outline': PersonCircleOutline,
+  'person-fill': PersonFill,
+  'person-outline': PersonOutline,
+  'search-fill': SearchFill,
+  'search-outline': SearchOutline,
 };
 
 /**
@@ -35,7 +35,7 @@ const icons = {
  * @param {string} props.color - The color of the icon.
  */
 const Icon = ({ name = 'dice-outline', size = 18, color }) => {
-  const { theme } = useTheme();
+  const { defaultStyles } = useTheme();
 
   const SVGIcon = icons[name];
 
@@ -43,7 +43,7 @@ const Icon = ({ name = 'dice-outline', size = 18, color }) => {
     <SVGIcon
       height={size}
       width={size}
-      color={color ?? theme.lbPrimary.color}
+      color={color ?? defaultStyles.lbPrimary.color}
     />
   );
 };

@@ -1,5 +1,5 @@
 export const SCREEN_NAME = {
-  TABS: 'Tabs',
+  TABS_BOTTOM: 'BottomTabs',
   ACCOUNT: 'AccountScreen',
   FEED: 'FeedScreen',
   FEED_LIST: 'FeedListScreen',

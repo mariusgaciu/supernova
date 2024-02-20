@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { useTheme } from '@hooks';
 import { TAB_NAME, TAB_TITLE } from '@config';
+import TabsTop from './TabsTop';
 import {
   AccountScreen,
   FeedScreen,
@@ -12,17 +13,17 @@ import {
 import { Icon } from '@libs';
 
 const Tab = createBottomTabNavigator();
-const NavTabs = () => {
-  const { theme } = useTheme();
+const TabsBottom = () => {
+  const { defaultStyles } = useTheme();
 
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: theme.primary.color,
+        tabBarActiveTintColor: defaultStyles.primary.color,
       }}
     >
       <Tab.Screen
-        component={FeedScreen}
+        component={TabsTop}
         name={TAB_NAME.FEED}
         options={{
           title: TAB_TITLE.FEED,
@@ -77,4 +78,4 @@ const NavTabs = () => {
   );
 };
 
-export default NavTabs;
+export default TabsBottom;

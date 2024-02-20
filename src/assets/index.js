@@ -9,15 +9,28 @@ import SVGPersonOutline from './icons/person-outline.svg';
 import SVGSearchFill from './icons/search-fill.svg';
 import SVGSearchOutline from './icons/search-outline.svg';
 
+export const FontAsset = {
+  FontBrand: require('./fonts/Orbitron-Regular.ttf'),
+  FontRegular: require('./fonts/NotoSans-Regular.ttf'),
+  FontMedium: require('./fonts/NotoSans-Medium.ttf'),
+  FontSemibold: require('./fonts/NotoSans-SemiBold.ttf'),
+  FontBold: require('./fonts/NotoSans-Bold.ttf'),
+  FontItalic: require('./fonts/NotoSans-Italic.ttf'),
+  FontMediumItalic: require('./fonts/NotoSans-MediumItalic.ttf'),
+  FontSemiboldItalic: require('./fonts/NotoSans-SemiBoldItalic.ttf'),
+  FontMonoRegular: require('./fonts/NotoSansMono-Regular.ttf'),
+  FontMonoBold: require('./fonts/NotoSansMono-Bold.ttf'),
+};
+
 export {
-  SVGDiceOutline,
-  SVGNewspaperFill,
-  SVGNewspaperOutline,
-  SVGNotificationsFill,
-  SVGNotificationsOutline,
-  SVGPersonCircleOutline,
-  SVGPersonFill,
-  SVGPersonOutline,
-  SVGSearchFill,
-  SVGSearchOutline,
+  SVGDiceOutline as DiceOutline,
+  SVGNewspaperFill as NewspaperFill,
+  SVGNewspaperOutline as NewspaperOutline,
+  SVGNotificationsFill as NotificationsFill,
+  SVGNotificationsOutline as NotificationsOutline,
+  SVGPersonCircleOutline as PersonCircleOutline,
+  SVGPersonFill as PersonFill,
+  SVGPersonOutline as PersonOutline,
+  SVGSearchFill as SearchFill,
+  SVGSearchOutline as SearchOutline,
 };

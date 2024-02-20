@@ -3,12 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { useTheme } from '@hooks';
 import { Icon } from '@libs';
+
 function FeedScreen(props) {
-  const { theme } = useTheme();
+  const { defaultStyles } = useTheme();
 
   return (
     <View style={styles.mainContainer}>
-      <Text style={[theme.lbPrimary]}>FeedScreen</Text>
+      <Text style={[defaultStyles.lbPrimary, defaultStyles.body]}>
+        FeedScreen
+      </Text>
       <Icon />
     </View>
   );
