@@ -1,4 +1,4 @@
 import { useAppInit } from './useAppInit';
-import { useTheme } from './useTheme';
+import { useStyles } from './useStyles';
 
-export { useAppInit, useTheme };
+export { useAppInit, useStyles };

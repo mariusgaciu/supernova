@@ -10,17 +10,49 @@ const light = StyleSheet.create({
   bgTertiary: {
     backgroundColor: '#F8FAFC',
   },
+  bgSuccess: {
+    backgroundColor: '#D2F9D8',
+  },
+  bgWarning: {
+    backgroundColor: '#FFF5CC',
+  },
+  bgDanger: {
+    backgroundColor: '#F5D6D6',
+  },
+  bgInfo: {
+    backgroundColor: '#DAE7F1',
+  },
   lbPrimary: {
     color: '#0F172A',
+    textDecorationColor: '#0F172A',
   },
   lbSecondary: {
     color: '#334155',
+    textDecorationColor: '#334155',
   },
   lbTertiary: {
     color: '#64748B',
+    textDecorationColor: '#64748B',
   },
   lbQuaternary: {
     color: '#CBD5E1',
+    textDecorationColor: '#CBD5E1',
+  },
+  lbSuccess: {
+    color: '#34C759',
+    textDecorationColor: '#34C759',
+  },
+  lbWarning: {
+    color: '#FF9500',
+    textDecorationColor: '#FF9500',
+  },
+  lbError: {
+    color: '#FF3B30',
+    textDecorationColor: '#FF3B30',
+  },
+  lbInfo: {
+    color: '#007AFF',
+    textDecorationColor: '#007AFF',
   },
   opaque: {
     color: 'rgba(198, 198, 200, 1)',
@@ -31,17 +63,20 @@ const light = StyleSheet.create({
   transparent: {
     color: 'rgba(0,0,0,0.0',
   },
-  success: {
-    color: 'rgba(52, 199, 89, 1)',
+  border: {
+    borderColor: '#DCDADE',
   },
-  warning: {
-    color: 'rgba(255, 149, 0, 1)',
+  borderSuccess: {
+    borderColor: '#16B62F',
   },
-  error: {
-    color: 'rgba(255, 59, 48, 1)',
+  borderWarning: {
+    borderColor: '#E5B700',
   },
-  info: {
-    color: 'rgba(0, 122, 255, 1)',
+  borderDanger: {
+    borderColor: '#DE7D7D',
+  },
+  borderInfo: {
+    borderColor: '#5794C1',
   },
   primary: {
     color: '#FC9303',
@@ -56,36 +91,68 @@ const light = StyleSheet.create({
     dark: false,
     colors: {
       primary: '#FC9303',
-      background: 'rgba(255, 255, 255, 1)',
-      card: 'rgba(242, 242, 247, 1)',
-      text: 'rgba(0, 0, 0, 1)',
-      border: 'rgba(198, 198, 200, 1)',
-      notification: 'rgba(255, 59, 48, 1)',
+      background: '#F8FAFC',
+      card: '#F1F5F9',
+      text: '#0F172A',
+      border: '#DCDADE',
+      notification: '#FF3B30',
     },
   },
 });
 
 const dark = StyleSheet.create({
   bgPrimary: {
-    backgroundColor: '#0F172A',
+    backgroundColor: '#000000',
   },
   bgSecondary: {
-    backgroundColor: '#1E293B',
+    backgroundColor: '#1E1C1C',
   },
   bgTertiary: {
-    backgroundColor: '#334155',
+    backgroundColor: '#2E2C2C',
+  },
+  bgSuccess: {
+    backgroundColor: '#30D158',
+  },
+  bgWarning: {
+    backgroundColor: '#FF9F0A',
+  },
+  bgDanger: {
+    backgroundColor: '#FF453A',
+  },
+  bgInfo: {
+    backgroundColor: '#0A84FF',
   },
   lbPrimary: {
     color: '#F8FAFC',
+    textDecorationColor: '#F8FAFC',
   },
   lbSecondary: {
     color: '#E2E8F0',
+    textDecorationColor: '#E2E8F0',
   },
   lbTertiary: {
     color: '#94A3B8',
+    textDecorationColor: '#94A3B8',
   },
   lbQuaternary: {
     color: '#475569',
+    textDecorationColor: '#475569',
+  },
+  lbSuccess: {
+    color: '#D2F9D8',
+    textDecorationColor: '#D2F9D8',
+  },
+  lbWarning: {
+    color: '#FFF5CC',
+    textDecorationColor: '#FFF5CC',
+  },
+  lbError: {
+    color: '#F5D6D6',
+    textDecorationColor: '#F5D6D6',
+  },
+  lbInfo: {
+    color: '#DAE7F1',
+    textDecorationColor: '#DAE7F1',
   },
   opaque: {
     color: 'rgba(56, 56, 58, 1)',
@@ -96,17 +163,20 @@ const dark = StyleSheet.create({
   transparent: {
     color: 'rgba(0,0,0,0.0',
   },
-  success: {
-    color: 'rgba(48, 209, 88, 1)',
+  border: {
+    borderColor: '#DCDADE',
   },
-  warning: {
-    color: 'rgba(255, 159, 10, 1)',
+  borderSuccess: {
+    borderColor: '#16B62F',
   },
-  error: {
-    color: 'rgba(255, 69, 58, 1)',
+  borderWarning: {
+    borderColor: '#E5B700',
   },
-  info: {
-    color: 'rgba(10, 132, 255, 1)',
+  borderDanger: {
+    borderColor: '#DE7D7D',
+  },
+  borderInfo: {
+    borderColor: '#5794C1',
   },
   primary: {
     color: '#74C365',
@@ -121,11 +191,11 @@ const dark = StyleSheet.create({
     dark: true,
     colors: {
       primary: '#74C365',
-      background: 'rgba(0, 0, 0, 1)',
-      card: 'rgba(28, 28, 30, 1)',
-      text: 'rgba(255, 255, 255, 1)',
-      border: 'rgba(56, 56, 58, 1)',
-      notification: 'rgba(255, 69, 58, 1)',
+      background: '#000000',
+      card: '#1E1C1C',
+      text: '#F8FAFC',
+      border: '#DCDADE',
+      notification: '#FF453A',
     },
   },
 });

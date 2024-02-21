@@ -5,14 +5,14 @@ import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 
 import { useAppInit } from '@hooks';
-import { useTheme } from '@hooks';
+import { useStyles } from '@hooks';
 import { NavMain } from '@navigation';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const { isAppReady, onLayoutRootView } = useAppInit();
-  const { defaultStyles } = useTheme();
+  const { defaultStyles } = useStyles();
 
   if (!isAppReady) return null;
 

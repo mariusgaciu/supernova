@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { useTheme } from '@hooks';
+import { useStyles } from '@hooks';
 import { TAB_NAME, TAB_TITLE } from '@config';
 import TabsTop from './TabsTop';
 import {
@@ -14,7 +14,7 @@ import { Icon } from '@libs';
 
 const Tab = createBottomTabNavigator();
 const TabsBottom = () => {
-  const { defaultStyles } = useTheme();
+  const { defaultStyles } = useStyles();
 
   return (
     <Tab.Navigator

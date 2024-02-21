@@ -1,4 +1,9 @@
+import SVGCaretUpOutline from './icons/caret-up-outline.svg';
+import SVGChatBoxOutline from './icons/chatbox-outline.svg';
+import SVGChatBubbleOutline from './icons/chatbubble-outline.svg';
 import SVGDiceOutline from './icons/dice-outline.svg';
+import SVGFitnessOutline from './icons/fitness-outline.svg';
+import SVGHeartOutline from './icons/heart-outline.svg';
 import SVGNewspaperFill from './icons/newspaper-fill.svg';
 import SVGNewspaperOutline from './icons/newspaper-outline.svg';
 import SVGNotificationsFill from './icons/notifications-fill.svg';
@@ -8,6 +13,7 @@ import SVGPersonFill from './icons/person-fill.svg';
 import SVGPersonOutline from './icons/person-outline.svg';
 import SVGSearchFill from './icons/search-fill.svg';
 import SVGSearchOutline from './icons/search-outline.svg';
+import SVGTimeOutline from './icons/time-outline.svg';
 
 export const FontAsset = {
   FontBrand: require('./fonts/Orbitron-Regular.ttf'),
@@ -23,7 +29,12 @@ export const FontAsset = {
 };
 
 export {
+  SVGCaretUpOutline as CaretUpOutline,
+  SVGChatBoxOutline as ChatBoxOutline,
+  SVGChatBubbleOutline as ChatBubbleOutline,
   SVGDiceOutline as DiceOutline,
+  SVGFitnessOutline as FitnessOutline,
+  SVGHeartOutline as HeartOutline,
   SVGNewspaperFill as NewspaperFill,
   SVGNewspaperOutline as NewspaperOutline,
   SVGNotificationsFill as NotificationsFill,
@@ -33,4 +44,5 @@ export {
   SVGPersonOutline as PersonOutline,
   SVGSearchFill as SearchFill,
   SVGSearchOutline as SearchOutline,
+  SVGTimeOutline as TimeOutline,
 };
