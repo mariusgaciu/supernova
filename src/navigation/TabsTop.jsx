@@ -8,26 +8,32 @@ const screens = [
   {
     id: 1,
     name: 'Top',
+    storyType: 'topstories',
   },
   {
     id: 2,
     name: 'Best',
+    storyType: 'beststories',
   },
   {
     id: 3,
     name: 'New',
+    storyType: 'newstories',
   },
   {
     id: 4,
     name: 'Ask',
+    storyType: 'askstories',
   },
   {
     id: 5,
     name: 'Show',
+    storyType: 'showstories',
   },
   {
     id: 6,
     name: 'Job Stories',
+    storyType: 'jobstories',
   },
 ];
 
@@ -47,10 +53,16 @@ const TabsTop = () => {
         tabBarItemStyle: {
           width: 'auto',
         },
+        lazy: true,
       }}
     >
       {screens.map((screen) => (
-        <Tab.Screen key={screen.id} name={screen.name} component={FeedScreen} />
+        <Tab.Screen
+          key={screen.id}
+          name={screen.name}
+          component={FeedScreen}
+          initialParams={{ storyType: screen.storyType }}
+        />
       ))}
     </Tab.Navigator>
   );

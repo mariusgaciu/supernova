@@ -15,6 +15,8 @@ import {
   PersonOutline,
   SearchFill,
   SearchOutline,
+  StarFill,
+  StarOutline,
   TimeOutline,
 } from '@assets';
 
@@ -36,13 +38,15 @@ const icons = {
   'person-outline': PersonOutline,
   'search-fill': SearchFill,
   'search-outline': SearchOutline,
+  'star-fill': StarFill,
+  'star-outline': StarOutline,
   'time-outline': TimeOutline,
 };
 
 /**
  * Get an SVG icon based on the given name, size, and color.
  * @param {Object} props
- * @param { "caret-up-outline" | 'chat-box-outline' | 'chat-bubble-outline' | 'fitness-outline' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'time-outline' } props.name - The type of message to retrieve.
+ * @param { "caret-up-outline" | 'chat-box-outline' | 'chat-bubble-outline' | 'fitness-outline' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
  * @param {number} props.size - The size of the icon in pixels.
  * @param {string} props.color - The color of the icon.
  */

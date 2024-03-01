@@ -13,6 +13,8 @@ import SVGPersonFill from './icons/person-fill.svg';
 import SVGPersonOutline from './icons/person-outline.svg';
 import SVGSearchFill from './icons/search-fill.svg';
 import SVGSearchOutline from './icons/search-outline.svg';
+import SVGStarFill from './icons/star-fill.svg';
+import SVGStarOutline from './icons/star-outline.svg';
 import SVGTimeOutline from './icons/time-outline.svg';
 
 export const FontAsset = {
@@ -44,5 +46,7 @@ export {
   SVGPersonOutline as PersonOutline,
   SVGSearchFill as SearchFill,
   SVGSearchOutline as SearchOutline,
+  SVGStarFill as StarFill,
+  SVGStarOutline as StarOutline,
   SVGTimeOutline as TimeOutline,
 };

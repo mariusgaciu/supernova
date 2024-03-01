@@ -1,6 +1,10 @@
 export const getDomain = (link) => {
-  const domain = new URL(link);
-  const hostname = domain.hostname.replace('www.', '');
+  let hostname = '';
+
+  if (link) {
+    const domain = new URL(link);
+    hostname = domain.hostname.replace('www.', '');
+  }
 
   return hostname;
 };

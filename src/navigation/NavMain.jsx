@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import TabsBottom from './TabsBottom';
 import { SCREEN_NAME } from '@config';
+import { StoryScreen } from '@screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ const NavMain = () => {
         component={TabsBottom}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name={SCREEN_NAME.STORY} component={StoryScreen} />
     </Stack.Navigator>
   );
 };
