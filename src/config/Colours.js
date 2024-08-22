@@ -164,7 +164,7 @@ const dark = StyleSheet.create({
     color: 'rgba(0,0,0,0.0',
   },
   border: {
-    borderColor: '#DCDADE',
+    borderColor: '#1E1C1C',
   },
   borderSuccess: {
     borderColor: '#16B62F',
@@ -194,7 +194,7 @@ const dark = StyleSheet.create({
       background: '#000000',
       card: '#1E1C1C',
       text: '#F8FAFC',
-      border: '#DCDADE',
+      border: '#1E1C1C',
       notification: '#FF453A',
     },
   },

@@ -1,7 +1,7 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { FlatList, Text } from 'react-native';
 
-import Story from './Story';
+import StoryItem from './StoryItem';
 import { ActivityIndicator, ListSeparator, RefreshControl } from '@components';
 import { useFetchStories } from '../hooks/useFetchStories';
 import { useStyles } from '@hooks';
@@ -40,7 +40,7 @@ function StoryList({ storyType }) {
       data={data}
       keyExtractor={(item) => item.id}
       renderItem={({ index, item }) => (
-        <Story
+        <StoryItem
           index={index}
           id={item.id}
           url={item?.url}

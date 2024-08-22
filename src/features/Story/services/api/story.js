@@ -14,6 +14,20 @@ export const getStory = async ({ id }) => {
   }
 };
 
+export const getStoryDetails = async ({ id }) => {
+  try {
+    const response = await fetch(`http://hn.algolia.com/api/v1/items/${id}`);
+
+    if (!response.ok) {
+      throw new Error('Network response not ok');
+    }
+
+    return response.json();
+  } catch (error) {
+    throw new Error(`Error fetching data - ${error}`);
+  }
+};
+
 export const getStories = async ({ storyType }) => {
   try {
     const response = await fetch(

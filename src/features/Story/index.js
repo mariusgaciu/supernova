@@ -1,3 +1,4 @@
+import StoryDetails from './components/StoryDetails';
 import StoryList from './components/StoryList';
 
-export { StoryList };
+export { StoryDetails, StoryList };

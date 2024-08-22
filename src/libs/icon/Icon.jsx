@@ -1,5 +1,10 @@
 import React from 'react';
 import {
+  ArrowUndoOutline,
+  ArrowUpCircleFill,
+  ArrowUpCircleOutline,
+  ArrowUpOutline,
+  BookmarkOutline,
   CaretUpOutline,
   ChatBoxOutline,
   ChatBubbleOutline,
@@ -23,6 +28,11 @@ import {
 import { useStyles } from '@hooks';
 
 const icons = {
+  'arrow-undo-outline': ArrowUndoOutline,
+  'arrow-up-circle-fill': ArrowUpCircleFill,
+  'arrow-up-circle-outline': ArrowUpCircleOutline,
+  'arrow-up-outline': ArrowUpOutline,
+  'bookmark-outline': BookmarkOutline,
   'caret-up-outline': CaretUpOutline,
   'chat-box-outline': ChatBoxOutline,
   'chat-bubble-outline': ChatBubbleOutline,
@@ -46,7 +56,7 @@ const icons = {
 /**
  * Get an SVG icon based on the given name, size, and color.
  * @param {Object} props
- * @param { "caret-up-outline" | 'chat-box-outline' | 'chat-bubble-outline' | 'fitness-outline' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
+ * @param { 'bookmark-outline' | 'arrow-undo-outline' | 'arrow-up-circle-fill' | 'arrow-up-circle-outline' | 'arrow-up-outline' | 'caret-up-outline' | 'chat-box-outline' | 'chat-bubble-outline' | 'fitness-outline' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
  * @param {number} props.size - The size of the icon in pixels.
  * @param {string} props.color - The color of the icon.
  */

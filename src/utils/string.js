@@ -1,5 +1,5 @@
 export const getTitlePrefix = (title) => {
-  const prefixes = ['Ask HN', 'Show HN', 'Tell HN'];
+  const prefixes = ['Ask HN', 'Show HN', 'Tell HN', 'Launch HN'];
 
   const prefix = prefixes.find((prefix) => title.startsWith(prefix));
 
@@ -7,7 +7,7 @@ export const getTitlePrefix = (title) => {
 };
 
 export const removeTitlePrefix = (title) => {
-  const prefixes = ['Ask HN: ', 'Show HN: ', 'Tell HN: '];
+  const prefixes = ['Ask HN: ', 'Show HN: ', 'Tell HN: ', 'Launch HN: '];
 
   const prefixFound = prefixes.find((prefix) => title.startsWith(prefix));
   const titleWithoutPrefix = prefixFound

@@ -1,5 +1,13 @@
 import { getDomain } from './url';
-import { getReadableDate } from './date';
+import { getReadableDateFromUnix, getReadableDateFromUTC } from './date';
+import { sortCommentsByOption } from './sorting';
 import { getTitlePrefix, removeTitlePrefix } from './string';
 
-export { getReadableDate, getDomain, getTitlePrefix, removeTitlePrefix };
+export {
+  getReadableDateFromUnix,
+  getReadableDateFromUTC,
+  getDomain,
+  getTitlePrefix,
+  removeTitlePrefix,
+  sortCommentsByOption,
+};

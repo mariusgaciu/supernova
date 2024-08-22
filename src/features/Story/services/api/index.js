@@ -1,3 +1,3 @@
-import { getStory, getStories } from './story';
+import { getStory, getStoryDetails, getStories } from './story';
 
-export { getStory, getStories };
+export { getStory, getStoryDetails, getStories };

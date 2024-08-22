@@ -1,3 +1,8 @@
+import SVGArrowUndoOutline from './icons/arrow-undo-outline.svg';
+import SVGArrowUpCircleFill from './icons/arrow-up-circle-fill';
+import SVGArrowUpCircleOutline from './icons/arrow-up-circle-outline';
+import SVGArrowUpOutline from './icons/arrow-up-outline.svg';
+import SVGBookmarkOutline from './icons/bookmark-outline.svg';
 import SVGCaretUpOutline from './icons/caret-up-outline.svg';
 import SVGChatBoxOutline from './icons/chatbox-outline.svg';
 import SVGChatBubbleOutline from './icons/chatbubble-outline.svg';
@@ -31,6 +36,11 @@ export const FontAsset = {
 };
 
 export {
+  SVGArrowUndoOutline as ArrowUndoOutline,
+  SVGArrowUpCircleFill as ArrowUpCircleFill,
+  SVGArrowUpCircleOutline as ArrowUpCircleOutline,
+  SVGArrowUpOutline as ArrowUpOutline,
+  SVGBookmarkOutline as BookmarkOutline,
   SVGCaretUpOutline as CaretUpOutline,
   SVGChatBoxOutline as ChatBoxOutline,
   SVGChatBubbleOutline as ChatBubbleOutline,
