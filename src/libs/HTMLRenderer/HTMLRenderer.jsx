@@ -1,5 +1,5 @@
 import React from 'react';
-import { useWindowDimensions } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 import RenderHTML from 'react-native-render-html';
 
 import { useStyles } from '@hooks';

@@ -1,13 +1,21 @@
 import React, { memo, useCallback } from 'react';
-import { FlatList, StyleSheet, View, useWindowDimensions } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+  Text,
+} from 'react-native';
 
-import { Button } from '@components';
+import { Button, Separator } from '@components';
 import { useStyles } from '@hooks';
 import { HTMLRenderer } from '@libs';
-import { getReadableDateFromUTC } from '@utils';
+import { countRecursiveItems, getReadableDateFromUTC } from '@utils';
 
 function CommentItem({
   user,
+  depth,
+  totalReplies,
   nestedComments = [],
   nestedLevel,
   timestamp,
@@ -15,6 +23,8 @@ function CommentItem({
 }) {
   const { width } = useWindowDimensions();
   const marginLeft = nestedLevel * (width * 0.02);
+
+  // const totalReplies = countRecursiveItems(nestedComments);
 
   const { defaultStyles } = useStyles();
 
@@ -31,8 +41,8 @@ function CommentItem({
     console.log(`All comments until ${timestamp}`);
   };
 
-  const handleUpvotePress = () => {
-    console.log(`Comment has been upvoted.`);
+  const handleVotePress = () => {
+    console.log(`Comment has been voted.`);
   };
 
   const handleReplyPress = () => {
@@ -50,6 +60,7 @@ function CommentItem({
       <CommentItem
         nestedLevel={nestedLevel + 1}
         user={item.author}
+        totalReplies={item.number_of_replies}
         timestamp={item.created_at}
         nestedComments={item.children}
         comment={item.text}
@@ -59,7 +70,15 @@ function CommentItem({
   );
 
   return (
-    <View style={[styles.mainContainer, defaultStyles.border]}>
+    <View
+      style={[
+        isFirstLevel && styles.mainContainer,
+        !isFirstLevel && {
+          ...styles.mainContainerNested,
+          borderColor: defaultStyles.primary.color,
+        },
+      ]}
+    >
       <View style={styles.topDetailsContainer}>
         <Button
           variant={'icon-label'}
@@ -77,6 +96,8 @@ function CommentItem({
           icon={'time-outline'}
           onPress={handleTimePress}
         />
+        <Text style={defaultStyles.lbPrimary}>{totalReplies}</Text>
+        <Text style={defaultStyles.lbPrimary}> Depth: {depth}</Text>
       </View>
       <View style={[styles.commentContainer]}>
         <HTMLRenderer content={comment} />
@@ -103,17 +124,15 @@ function CommentItem({
             labelColor={defaultStyles.lbTertiary.color}
             label={'Vote'}
             icon={'arrow-up-circle-outline'}
-            onPress={handleUpvotePress}
+            onPress={handleVotePress}
           />
         </View>
         {nestedComments.length > 0 && (
-          <View style={{ flexGrow: 1 }}>
-            <FlatList
-              data={nestedComments}
-              keyExtractor={keyExtractor}
-              renderItem={renderItem}
-            />
-          </View>
+          <FlatList
+            data={nestedComments}
+            keyExtractor={keyExtractor}
+            renderItem={renderItem}
+          />
         )}
       </View>
     </View>
@@ -122,17 +141,20 @@ function CommentItem({
 
 const styles = StyleSheet.create({
   mainContainer: {
-    paddingVertical: '2%',
-    borderLeftWidth: 2,
-    paddingLeft: 5,
+    marginHorizontal: 6,
+  },
+  mainContainerNested: {
+    borderLeftWidth: 1,
   },
   topDetailsContainer: {
+    paddingVertical: 5,
     flexDirection: 'row',
   },
   commentContainer: {
-    paddingVertical: '2%',
+    paddingLeft: 5,
   },
   bottomDetailsContainer: {
+    paddingVertical: 5,
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },

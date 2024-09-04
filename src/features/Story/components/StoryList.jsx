@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, Text } from 'react-native';
 
 import StoryItem from './StoryItem';
-import { ActivityIndicator, ListSeparator, RefreshControl } from '@components';
+import { ActivityIndicator, Separator, RefreshControl } from '@components';
 import { useFetchStories } from '../hooks/useFetchStories';
 import { useStyles } from '@hooks';
 
@@ -29,7 +29,7 @@ function StoryList({ storyType }) {
 
   return (
     <FlatList
-      ItemSeparatorComponent={<ListSeparator />}
+      ItemSeparatorComponent={<Separator style={{ marginLeft: 16 }} />}
       ListFooterComponent={
         <ActivityIndicator size="small" isEndReached={!hasMoreItems} />
       }

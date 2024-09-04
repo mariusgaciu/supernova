@@ -32,12 +32,14 @@ export const sortCommentsByOption = (karmaOrder, unsortedComments) => {
       sortedComments = [...unsortedComments].sort(
         (a, b) => b.created_at_i - a.created_at_i
       );
+      console.log('NEW');
       break;
     case 'oldest':
       // Create a shallow copy to avoid mutating the original array
       sortedComments = [...unsortedComments].sort(
         (a, b) => a.created_at_i - b.created_at_i
       );
+      console.log('OLD');
       break;
     case 'default':
       // Create a shallow copy to avoid mutating the original array

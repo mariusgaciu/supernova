@@ -28,7 +28,12 @@ function StoryHeader({ url, title, user, noOfComments, timestamp, score }) {
   };
 
   return (
-    <View style={[styles.mainContainer, defaultStyles.border]}>
+    <View
+      style={[
+        styles.mainContainer,
+        { borderColor: defaultStyles.primary.color },
+      ]}
+    >
       <Text style={[defaultStyles.lbSecondary, defaultStyles.caption1]}>
         <Text style={styles.domainText}>{domain}</Text>
         {domain && titlePrefix ? '  •  ' : ''}
@@ -80,10 +85,14 @@ function StoryHeader({ url, title, user, noOfComments, timestamp, score }) {
 const styles = StyleSheet.create({
   mainContainer: {
     width: '100%',
-    paddingHorizontal: '2%',
+    paddingHorizontal: 4,
     paddingVertical: '2%',
     rowGap: 8,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
   domainText: {
     textDecorationLine: 'underline',
@@ -94,7 +103,7 @@ const styles = StyleSheet.create({
   },
   detailsLeftContainer: {
     flexDirection: 'row',
-    columnGap: 10,
+    columnGap: 5,
   },
 });
 

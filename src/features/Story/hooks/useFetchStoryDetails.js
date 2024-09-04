@@ -14,19 +14,46 @@ export const useFetchStoryDetails = ({ id }) => {
     select: (data) => {
       const [storyDetails, story] = data;
 
-      // Sort the comments by HackerNews algorithm
-      const sortedComments = sortCommentsByOption(
-        story.kids,
-        storyDetails.children
-      );
-      // Create pagination object
-      // const comments = sortedComments.slice(0, 5);
+      if (storyDetails.children && storyDetails.children.length > 0) {
+        // Sort the comments by user selected option.
+        const sortedComments = sortCommentsByOption(
+          story.kids,
+          storyDetails.children
+        );
 
-      storyDetails.children = sortedComments;
+        const flattenComments = (comments, depth = 0) => {
+          let flattened = [];
+
+          for (const comment of comments) {
+            const { children, ...rest } = comment;
+
+            flattened.push({
+              ...rest,
+              depth: depth,
+              no_of_replies: children.length,
+            });
+
+            if (children && children?.length > 0) {
+              flattened = flattened.concat(
+                flattenComments(children, depth + 1)
+              );
+            }
+          }
+
+          return flattened;
+        };
+
+        const flattenedComments = flattenComments(sortedComments);
+
+        return {
+          ...storyDetails,
+          children: flattenedComments,
+          descendants: story.descendants,
+        };
+      }
 
       return {
         ...storyDetails,
-        allComments: sortedComments,
         descendants: story.descendants,
       };
     },

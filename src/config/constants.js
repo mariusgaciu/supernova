@@ -1,3 +1,7 @@
+export const CONFIG = {
+  COMMENTS_PER_LOAD: 5,
+};
+
 export const SCREEN_NAME = {
   TABS_BOTTOM: 'BottomTabs',
   ACCOUNT: 'AccountScreen',

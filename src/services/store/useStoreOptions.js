@@ -6,7 +6,7 @@ export const useStoreOptions = create(
   persist(
     (set) => ({
       options: {
-        commentSorting: 'newest',
+        commentSorting: 'default',
       },
       setCommentSorting: (sortingOption) =>
         set((state) => ({

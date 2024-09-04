@@ -1,61 +1,46 @@
-import React, { useCallback, useEffect } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  InteractionManager,
-} from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import { ActivityIndicator, RefreshControl } from '@components';
+import { CONFIG } from '@config';
+import { ActivityIndicator, Separator, RefreshControl } from '@components';
 import StoryHeader from './StoryHeader';
 import CommentItem from './CommentItem';
 import { useFetchStoryDetails } from '../hooks/useFetchStoryDetails';
 import { useStyles } from '@hooks';
 
 function StoryDetails({ id }) {
+  const [visibleComments, setVisibleComments] = useState(
+    CONFIG.COMMENTS_PER_LOAD
+  );
+
   const { defaultStyles } = useStyles();
 
   const { data, isLoading, isRefreshing, isError, lastRefreshed, refresh } =
     useFetchStoryDetails({ id });
 
-  const keyExtractor = useCallback((item) => item.id.toString(), []);
+  const visibleItems = data?.children.slice(0, visibleComments);
+
+  const handleOnEndReached = useCallback(() => {
+    setVisibleComments((prev) => prev + CONFIG.COMMENTS_PER_LOAD);
+  }, []);
+
+  const keyExtractor = useCallback((item) => item.id.toString());
 
   const renderItem = useCallback(
     ({ item }) => (
       <View>
         <CommentItem
           nestedLevel={0}
+          depth={item.depth}
           user={item.author}
+          totalReplies={item.number_of_replies}
           timestamp={item.created_at}
-          nestedComments={item.children}
           comment={item.text}
         />
       </View>
     ),
     []
   );
-
-  useEffect(() => {
-    if (!isLoading && !!data) {
-      // Use requestAnimationFrame to ensure the UI has updated
-      InteractionManager.runAfterInteractions(() => {
-        const finishedRendering = new Date();
-        console.log('Screen has finished rendering:', finishedRendering);
-        console.log(
-          'It took',
-          (finishedRendering.getTime() - finishedLoading.getTime()) / 1000,
-          's to render the screen'
-        );
-      });
-    }
-  }, [isLoading, data]);
-
-  let finishedLoading;
-  if (!isLoading && !!data) {
-    finishedLoading = new Date();
-    console.log('Data is fetched:', finishedLoading);
-  }
 
   if (isLoading) return <ActivityIndicator />;
 
@@ -64,6 +49,7 @@ function StoryDetails({ id }) {
   return (
     <View style={styles.mainContainer}>
       <FlatList
+        ItemSeparatorComponent={<Separator height={5} />}
         ListHeaderComponent={
           <StoryHeader
             url={data.url}
@@ -74,12 +60,16 @@ function StoryDetails({ id }) {
             score={data.points}
           />
         }
+        ListFooterComponent={
+          <Separator style={defaultStyles.bgPrimary} height={25} />
+        }
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
         }
-        data={data?.children}
+        data={visibleItems}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
+        onEndReached={handleOnEndReached}
       />
     </View>
   );
