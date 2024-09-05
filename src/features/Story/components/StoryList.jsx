@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FlatList, Text } from 'react-native';
 
 import StoryItem from './StoryItem';
@@ -23,6 +23,28 @@ function StoryList({ storyType }) {
     storyType,
   });
 
+  const isJobStory = storyType === 'jobstories';
+
+  const keyExtractor = useCallback((item) => item.id.toString(), []);
+
+  const renderItem = useCallback(
+    ({ item, index }) => (
+      <StoryItem
+        index={index}
+        id={item.id}
+        url={item?.url}
+        title={item.title}
+        user={item.by}
+        noOfComments={item.descendants}
+        timestamp={item.time}
+        score={item.score}
+        lastRefreshed={lastRefreshed}
+        isJobStory={isJobStory}
+      />
+    ),
+    []
+  );
+
   if (isLoading) return <ActivityIndicator />;
 
   if (isError) return <Text style={[defaultStyles.lbError]}>ERROR</Text>;
@@ -38,20 +60,8 @@ function StoryList({ storyType }) {
       }
       onEndReached={loadMoreItems}
       data={data}
-      keyExtractor={(item) => item.id}
-      renderItem={({ index, item }) => (
-        <StoryItem
-          index={index}
-          id={item.id}
-          url={item?.url}
-          title={item.title}
-          user={item.by}
-          noOfComments={item.descendants}
-          timestamp={item.time}
-          score={item.score}
-          lastRefreshed={lastRefreshed}
-        />
-      )}
+      keyExtractor={keyExtractor}
+      renderItem={renderItem}
     />
   );
 }

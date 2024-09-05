@@ -5,8 +5,11 @@ sntrys*eyJpYXQiOjE3MjU0ODIwMjAuMDY1MjgxLCJ1cmwiOiJodHRwczovL3NlbnRyeS5pbyIsInJlZ
 
 ## Pending
 
+- [ ] Add toggle to open links in app or default browser.
 - [ ] Manage the Job story type.
-  - Remove voting, comments and on navigate straight to link on card tap.
+  - [x] Remove voting
+  - [x] Remove comments
+  - [ ] On navigate straight to link on card tap.
 - [ ] Subscribing to comments.
   - Resources:
     - Alert bot for Telegram - [HackerNews-Alert-Bot](https://github.com/lawxls/HackerNews-Alerts-Bot)

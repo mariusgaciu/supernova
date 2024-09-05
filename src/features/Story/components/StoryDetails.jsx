@@ -19,12 +19,13 @@ function StoryDetails({ id }) {
     useFetchStoryDetails({ id });
 
   const visibleItems = data?.children.slice(0, visibleComments);
+  const isEndReached = data?.children.length <= visibleComments;
 
   const handleOnEndReached = useCallback(() => {
     setVisibleComments((prev) => prev + CONFIG.COMMENTS_PER_LOAD);
   }, []);
 
-  const keyExtractor = useCallback((item) => item.id.toString());
+  const keyExtractor = useCallback((item) => item.id.toString(), []);
 
   const renderItem = useCallback(
     ({ item }) => (
@@ -59,7 +60,13 @@ function StoryDetails({ id }) {
           />
         }
         ListFooterComponent={
-          <Separator style={defaultStyles.bgPrimary} height={25} />
+          <View>
+            {isEndReached ? (
+              <Separator style={defaultStyles.bgPrimary} height={25} />
+            ) : (
+              <ActivityIndicator size="small" isEndReached={isEndReached} />
+            )}
+          </View>
         }
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />

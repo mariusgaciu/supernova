@@ -23,6 +23,7 @@ function StoryItem({
   timestamp,
   score,
   lastRefreshed,
+  isJobStory,
 }) {
   const { defaultStyles } = useStyles();
   const navigation = useNavigation();
@@ -35,16 +36,16 @@ function StoryItem({
   const handleStoryPress = () => {
     // TODO: Long press, give
     navigation.navigate(SCREEN_NAME.STORY, { id });
-    console.log(`Navigate to story ${id}.`);
+    console.log(`Navigate to story ${id}`);
   };
 
   const handleUserPress = () => {
-    console.log(`Navigate to ${user}'s profile.`);
+    console.log(`Navigate to ${user}'s profile`);
   };
 
   const handleCommentPress = () => {
     // TODO: FUTURE - Pressing on this would navigate to story screen with reply comment/keyboard open.
-    console.log(`Navigate to story ${id}.`);
+    console.log(`Navigate to story ${id}`);
   };
 
   const handleTimePress = () => {
@@ -52,8 +53,8 @@ function StoryItem({
     console.log(`All stories until ${timestamp}`);
   };
 
-  const handleUpvotePress = () => {
-    console.log(`Story ${id} has been upvoted.`);
+  const handleVotePress = () => {
+    console.log(`Story ${id} has been voted`);
   };
 
   return (
@@ -97,14 +98,16 @@ function StoryItem({
             icon={'person-circle-outline'}
             onPress={handleUserPress}
           />
-          <Button
-            variant={'icon-label'}
-            size="small"
-            labelColor={defaultStyles.lbTertiary.color}
-            label={noOfComments}
-            icon={'chat-bubble-outline'}
-            onPress={handleCommentPress}
-          />
+          {!isJobStory && (
+            <Button
+              variant={'icon-label'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={noOfComments}
+              icon={'chat-bubble-outline'}
+              onPress={handleCommentPress}
+            />
+          )}
           <Button
             variant={'icon-label'}
             size="small"
@@ -115,14 +118,16 @@ function StoryItem({
           />
         </View>
         <View>
-          <Button
-            variant={'icon-label'}
-            size="small"
-            labelColor={defaultStyles.lbTertiary.color}
-            label={score}
-            icon={'arrow-up-circle-outline'}
-            onPress={handleUpvotePress}
-          />
+          {!isJobStory && (
+            <Button
+              variant={'icon-label'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={score}
+              icon={'arrow-up-circle-outline'}
+              onPress={handleVotePress}
+            />
+          )}
         </View>
       </View>
     </PressableHighlight>
