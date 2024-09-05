@@ -27,7 +27,20 @@
       "favicon": "./src/assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
-    ]
+      "expo-font",
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "overstack-org",
+          "project": "supernova",
+          "url": "https://sentry.io/"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d66984c0-8ef4-4af7-8b9c-3b06d76b3a0c"
+      }
+    }
   }
 }
