@@ -13,7 +13,7 @@ import { NavMain } from '@navigation';
 
 Sentry.init({
   dsn: Constants.expoConfig.extra.SENTRY_DSN,
-  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  debug: false, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
 });
 
 SplashScreen.preventAutoHideAsync();

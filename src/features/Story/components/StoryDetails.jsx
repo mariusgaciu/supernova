@@ -30,7 +30,6 @@ function StoryDetails({ id }) {
     ({ item }) => (
       <View>
         <CommentItem
-          nestedLevel={0}
           depth={item.depth}
           user={item.author}
           totalReplies={item.number_of_replies}
@@ -49,7 +48,6 @@ function StoryDetails({ id }) {
   return (
     <View style={styles.mainContainer}>
       <FlatList
-        ItemSeparatorComponent={<Separator height={5} />}
         ListHeaderComponent={
           <StoryHeader
             url={data.url}

@@ -5,7 +5,8 @@ sntrys*eyJpYXQiOjE3MjU0ODIwMjAuMDY1MjgxLCJ1cmwiOiJodHRwczovL3NlbnRyeS5pbyIsInJlZ
 
 ## Pending
 
-- [ ] Redesign the UI for a comment to use depth for indentation.
+- [ ] Manage the Job story type.
+  - Remove voting, comments and on navigate straight to link on card tap.
 - [ ] Subscribing to comments.
   - Resources:
     - Alert bot for Telegram - [HackerNews-Alert-Bot](https://github.com/lawxls/HackerNews-Alerts-Bot)
@@ -15,6 +16,7 @@ sntrys*eyJpYXQiOjE3MjU0ODIwMjAuMDY1MjgxLCJ1cmwiOiJodHRwczovL3NlbnRyeS5pbyIsInJlZ
 
 ## Complete
 
+- [x] `2024.09.05` Redesign the UI for a comment to use depth for indentation.
 - [x] `2024.09.05` Setup Sentry for error tracking.
 - [x] `2024.09.04` Refactored story fetching and comment rendering to improve performance.
 - [x] `2024.08.21` Setup default comment sorting options.

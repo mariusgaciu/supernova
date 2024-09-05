@@ -1,27 +1,22 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 
 import { useStyles } from '@hooks';
 
-function Separator({ style, height }) {
+function Separator({ style, color, height = 2, width }) {
   const { defaultStyles } = useStyles();
 
   return (
     <View
       style={[
         style,
-        styles.mainContainer,
         !style?.backgroundColor && defaultStyles.bgSecondary,
         !!height && { height },
+        !!width && { width },
+        !!color && { backgroundColor: color },
       ]}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    height: 2,
-  },
-});
 
 export default Separator;

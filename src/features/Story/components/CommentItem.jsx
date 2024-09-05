@@ -1,35 +1,16 @@
-import React, { memo, useCallback } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  View,
-  useWindowDimensions,
-  Text,
-} from 'react-native';
+import React, { memo } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { Button, Separator } from '@components';
 import { useStyles } from '@hooks';
 import { HTMLRenderer } from '@libs';
-import { countRecursiveItems, getReadableDateFromUTC } from '@utils';
+import { getReadableDateFromUTC } from '@utils';
 
-function CommentItem({
-  user,
-  depth,
-  totalReplies,
-  nestedComments = [],
-  nestedLevel,
-  timestamp,
-  comment,
-}) {
-  const { width } = useWindowDimensions();
-  const marginLeft = nestedLevel * (width * 0.02);
-
-  // const totalReplies = countRecursiveItems(nestedComments);
-
+function CommentItem({ user, depth, totalReplies, timestamp, comment }) {
   const { defaultStyles } = useStyles();
 
   const time = getReadableDateFromUTC(timestamp);
-  const isFirstLevel = nestedLevel === 0;
+  const isFirstLevel = depth === 0;
 
   const handleUserPress = () => {
     // TODO: Add navigation to profile.
@@ -53,87 +34,73 @@ function CommentItem({
     console.log(`Comment has been saved.`);
   };
 
-  const keyExtractor = useCallback((item) => item.id.toString(), []);
+  const indentation = [...Array(depth).keys()];
 
-  const renderItem = useCallback(
-    ({ item }) => (
-      <CommentItem
-        nestedLevel={nestedLevel + 1}
-        user={item.author}
-        totalReplies={item.number_of_replies}
-        timestamp={item.created_at}
-        nestedComments={item.children}
-        comment={item.text}
-      />
-    ),
-    []
-  );
+  console.log('DEPTH', [...Array(depth).keys()]);
 
   return (
-    <View
-      style={[
-        isFirstLevel && styles.mainContainer,
-        !isFirstLevel && {
-          ...styles.mainContainerNested,
-          borderColor: defaultStyles.primary.color,
-        },
-      ]}
-    >
-      <View style={styles.topDetailsContainer}>
-        <Button
-          variant={'icon-label'}
-          size="small"
-          labelColor={defaultStyles.lbTertiary.color}
-          label={user}
-          icon={'person-circle-outline'}
-          onPress={handleUserPress}
+    <View style={[styles.mainContainer]}>
+      {indentation.map((value, index) => (
+        <View
+          key={index}
+          style={[
+            styles.indentation,
+            { backgroundColor: defaultStyles.primary.color },
+            index > 0 && { marginLeft: 5 },
+          ]}
         />
-        <Button
-          variant={'icon-label'}
-          size="small"
-          labelColor={defaultStyles.lbTertiary.color}
-          label={time}
-          icon={'time-outline'}
-          onPress={handleTimePress}
-        />
-        <Text style={defaultStyles.lbPrimary}>{totalReplies}</Text>
-        <Text style={defaultStyles.lbPrimary}> Depth: {depth}</Text>
-      </View>
-      <View style={[styles.commentContainer]}>
-        <HTMLRenderer content={comment} />
-        <View style={styles.bottomDetailsContainer}>
+      ))}
+
+      <View style={styles.commentWrapper}>
+        <View style={styles.topDetailsContainer}>
           <Button
-            variant={isFirstLevel ? 'icon-label' : 'icon'}
+            variant={'icon-label'}
             size="small"
             labelColor={defaultStyles.lbTertiary.color}
-            label={'Save'}
-            icon={'bookmark-outline'}
-            onPress={handleSavePress}
+            label={user}
+            icon={'person-circle-outline'}
+            onPress={handleUserPress}
           />
           <Button
-            variant={isFirstLevel ? 'icon-label' : 'icon'}
+            variant={'icon-label'}
             size="small"
             labelColor={defaultStyles.lbTertiary.color}
-            label={'Reply'}
-            icon={'arrow-undo-outline'}
-            onPress={handleReplyPress}
+            label={time}
+            icon={'time-outline'}
+            onPress={handleTimePress}
           />
-          <Button
-            variant={isFirstLevel ? 'icon-label' : 'icon'}
-            size="small"
-            labelColor={defaultStyles.lbTertiary.color}
-            label={'Vote'}
-            icon={'arrow-up-circle-outline'}
-            onPress={handleVotePress}
-          />
+          <Text style={defaultStyles.lbPrimary}>{totalReplies}</Text>
+          <Text style={defaultStyles.lbPrimary}> Depth: {depth}</Text>
         </View>
-        {nestedComments.length > 0 && (
-          <FlatList
-            data={nestedComments}
-            keyExtractor={keyExtractor}
-            renderItem={renderItem}
-          />
-        )}
+        <View style={[styles.commentContainer]}>
+          <HTMLRenderer content={comment} />
+          <View style={styles.bottomDetailsContainer}>
+            <Button
+              variant={isFirstLevel ? 'icon-label' : 'icon'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={'Save'}
+              icon={'bookmark-outline'}
+              onPress={handleSavePress}
+            />
+            <Button
+              variant={isFirstLevel ? 'icon-label' : 'icon'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={'Reply'}
+              icon={'arrow-undo-outline'}
+              onPress={handleReplyPress}
+            />
+            <Button
+              variant={isFirstLevel ? 'icon-label' : 'icon'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={'Vote'}
+              icon={'arrow-up-circle-outline'}
+              onPress={handleVotePress}
+            />
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -142,19 +109,25 @@ function CommentItem({
 const styles = StyleSheet.create({
   mainContainer: {
     marginHorizontal: 6,
+    flexDirection: 'row',
   },
-  mainContainerNested: {
-    borderLeftWidth: 1,
+  indentation: {
+    width: 1,
+  },
+  commentWrapper: {
+    flex: 1,
   },
   topDetailsContainer: {
     paddingVertical: 5,
     flexDirection: 'row',
   },
   commentContainer: {
-    paddingLeft: 5,
+    flexShrink: 1,
+    paddingLeft: 6,
   },
   bottomDetailsContainer: {
     paddingVertical: 5,
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
   },
