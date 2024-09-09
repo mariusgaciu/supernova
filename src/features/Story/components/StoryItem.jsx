@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { PressableHighlight, PressableIconLabel } from '@components';
 import { Button } from '@components';
 import {
-  getDomain,
+  linkHelpers,
   getReadableDateFromUnix,
   getTitlePrefix,
   removeTitlePrefix,
@@ -28,32 +28,36 @@ function StoryItem({
   const { defaultStyles } = useStyles();
   const navigation = useNavigation();
 
-  const domain = getDomain(url);
+  const domain = linkHelpers.getDomain(url);
   const time = getReadableDateFromUnix(timestamp);
   const titlePrefix = getTitlePrefix(title);
   const titleWithoutPrefix = removeTitlePrefix(title);
 
-  const handleStoryPress = () => {
+  const _handleStoryPress = () => {
     // TODO: Long press, give
-    navigation.navigate(SCREEN_NAME.STORY, { id });
+    if (isJobStory) {
+      linkHelpers.openUrl(url);
+    } else {
+      navigation.navigate(SCREEN_NAME.STORY, { id });
+    }
     console.log(`Navigate to story ${id}`);
   };
 
-  const handleUserPress = () => {
+  const _handleUserPress = () => {
     console.log(`Navigate to ${user}'s profile`);
   };
 
-  const handleCommentPress = () => {
+  const _handleCommentPress = () => {
     // TODO: FUTURE - Pressing on this would navigate to story screen with reply comment/keyboard open.
     console.log(`Navigate to story ${id}`);
   };
 
-  const handleTimePress = () => {
+  const _handleTimePress = () => {
     // TODO: - Pressing this would filter all stories between the time of the story and present
     console.log(`All stories until ${timestamp}`);
   };
 
-  const handleVotePress = () => {
+  const _handleVotePress = () => {
     console.log(`Story ${id} has been voted`);
   };
 
@@ -61,7 +65,7 @@ function StoryItem({
     <PressableHighlight
       style={styles.mainContainer}
       underlayColor={defaultStyles.bgSecondary}
-      onPress={handleStoryPress}
+      onPress={_handleStoryPress}
     >
       <View style={[styles.subheader]}>
         <View style={[styles.positionContainer, defaultStyles.borderInfo]}>
@@ -96,7 +100,7 @@ function StoryItem({
             labelColor={defaultStyles.lbTertiary.color}
             label={user}
             icon={'person-circle-outline'}
-            onPress={handleUserPress}
+            onPress={_handleUserPress}
           />
           {!isJobStory && (
             <Button
@@ -105,7 +109,7 @@ function StoryItem({
               labelColor={defaultStyles.lbTertiary.color}
               label={noOfComments}
               icon={'chat-bubble-outline'}
-              onPress={handleCommentPress}
+              onPress={_handleCommentPress}
             />
           )}
           <Button
@@ -114,7 +118,7 @@ function StoryItem({
             labelColor={defaultStyles.lbTertiary.color}
             label={time}
             icon={'time-outline'}
-            onPress={handleTimePress}
+            onPress={_handleTimePress}
           />
         </View>
         <View>
@@ -125,7 +129,7 @@ function StoryItem({
               labelColor={defaultStyles.lbTertiary.color}
               label={score}
               icon={'arrow-up-circle-outline'}
-              onPress={handleVotePress}
+              onPress={_handleVotePress}
             />
           )}
         </View>

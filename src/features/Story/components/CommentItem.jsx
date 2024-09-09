@@ -11,6 +11,7 @@ function CommentItem({ user, depth, totalReplies, timestamp, comment }) {
 
   const time = getReadableDateFromUTC(timestamp);
   const isFirstLevel = depth === 0;
+  const indentation = [...Array(depth).keys()];
 
   const handleUserPress = () => {
     // TODO: Add navigation to profile.
@@ -33,10 +34,6 @@ function CommentItem({ user, depth, totalReplies, timestamp, comment }) {
   const handleSavePress = () => {
     console.log(`Comment has been saved.`);
   };
-
-  const indentation = [...Array(depth).keys()];
-
-  console.log('DEPTH', [...Array(depth).keys()]);
 
   return (
     <View style={[styles.mainContainer]}>

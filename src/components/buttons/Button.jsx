@@ -65,6 +65,7 @@ function Button({
         <Text
           style={[
             styleText,
+            defaultStyles.lbPrimary,
             variant === 'icon' ? styles.labelWithoutIcon : styles.Label,
             variant === 'link'
               ? styles.variantLink

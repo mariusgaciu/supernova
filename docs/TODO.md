@@ -1,15 +1,10 @@
 # TO-DO
 
 TEST STORY - 41341353
-sntrys*eyJpYXQiOjE3MjU0ODIwMjAuMDY1MjgxLCJ1cmwiOiJodHRwczovL3NlbnRyeS5pbyIsInJlZ2lvbl91cmwiOiJodHRwczovL2RlLnNlbnRyeS5pbyIsIm9yZyI6Im92ZXJzdGFjay1udSJ9*+uPDWoimYiBM9gQdDxETh8+rKvan/MILFyHd0dY+YLg
 
 ## Pending
 
-- [ ] Add toggle to open links in app or default browser.
-- [ ] Manage the Job story type.
-  - [x] Remove voting
-  - [x] Remove comments
-  - [ ] On navigate straight to link on card tap.
+- [ ]
 - [ ] Subscribing to comments.
   - Resources:
     - Alert bot for Telegram - [HackerNews-Alert-Bot](https://github.com/lawxls/HackerNews-Alerts-Bot)
@@ -19,6 +14,11 @@ sntrys*eyJpYXQiOjE3MjU0ODIwMjAuMDY1MjgxLCJ1cmwiOiJodHRwczovL3NlbnRyeS5pbyIsInJlZ
 
 ## Complete
 
+- `2024.09.05` [x] Manage the Job story type.
+  - [x] Remove voting
+  - [x] Remove comments
+  - [x] On navigate straight to link on card tap for job stories.
+- [x] `2024.09.05` Add toggle to open links in app or default browser.
 - [x] `2024.09.05` Redesign the UI for a comment to use depth for indentation.
 - [x] `2024.09.05` Setup Sentry for error tracking.
 - [x] `2024.09.04` Refactored story fetching and comment rendering to improve performance.

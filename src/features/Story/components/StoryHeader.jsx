@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import {
-  getDomain,
+  linkHelpers,
   getReadableDateFromUnix,
   getTitlePrefix,
   removeTitlePrefix,
@@ -14,7 +14,7 @@ import { useStyles } from '@hooks';
 function StoryHeader({ url, title, user, noOfComments, timestamp, score }) {
   const { defaultStyles } = useStyles();
 
-  const domain = getDomain(url);
+  const domain = linkHelpers.getDomain(url);
   const titlePrefix = getTitlePrefix(title);
   const titleWithoutPrefix = removeTitlePrefix(title);
   const readableTime = getReadableDateFromUnix(timestamp);

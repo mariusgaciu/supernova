@@ -1,5 +1,5 @@
 export const CONFIG = {
-  COMMENTS_PER_LOAD: 5,
+  COMMENTS_PER_LOAD: 50,
 };
 
 export const SCREEN_NAME = {

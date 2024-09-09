@@ -6,13 +6,21 @@ export const useStoreOptions = create(
   persist(
     (set) => ({
       options: {
-        commentSorting: 'default',
+        commentSorting: 'default', // 'default' | 'newest' | 'oldest'
+        openLinkWith: true, // 'browser' === true | 'inApp' === false
       },
       setCommentSorting: (sortingOption) =>
         set((state) => ({
           options: {
             ...state.options,
             commentSorting: sortingOption,
+          },
+        })),
+      setOpenLinkWith: (openLinkWith) =>
+        set((state) => ({
+          options: {
+            ...state.options,
+            openLinkWith: openLinkWith,
           },
         })),
     }),
