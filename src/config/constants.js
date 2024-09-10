@@ -25,3 +25,13 @@ export const TAB_TITLE = {
   NOTIFICATIONS: 'Notifications',
   ACCOUNT: 'Account',
 };
+
+export const TITLE_PREFIXES = [
+  'Ask HN:',
+  'Show HN:',
+  'Tell HN:',
+  'Launch HN:',
+  // 'Thank HN:',
+  'Discuss HN:',
+  'Poll HN:',
+];

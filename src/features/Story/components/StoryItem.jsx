@@ -2,14 +2,9 @@ import React, { memo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { PressableHighlight, PressableIconLabel } from '@components';
+import { PressableHighlight } from '@components';
 import { Button } from '@components';
-import {
-  linkHelpers,
-  getReadableDateFromUnix,
-  getTitlePrefix,
-  removeTitlePrefix,
-} from '@utils';
+import { linkHelpers, getReadableDateFromUnix, stringHelpers } from '@utils';
 import { SCREEN_NAME } from '@config';
 import { useStyles } from '@hooks';
 
@@ -30,8 +25,8 @@ function StoryItem({
 
   const domain = linkHelpers.getDomain(url);
   const time = getReadableDateFromUnix(timestamp);
-  const titlePrefix = getTitlePrefix(title);
-  const titleWithoutPrefix = removeTitlePrefix(title);
+  const titlePrefix = stringHelpers.getTitlePrefix(title);
+  const titleWithoutPrefix = stringHelpers.removeTitlePrefix(title);
 
   const _handleStoryPress = () => {
     // TODO: Long press, give

@@ -54,6 +54,7 @@ function StoryDetails({ id }) {
             url={data.url}
             title={data.title}
             user={data.author}
+            body={data.text}
             noOfComments={data.descendants}
             timestamp={data.created_at_i}
             score={data.points}

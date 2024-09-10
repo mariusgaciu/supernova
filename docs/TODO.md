@@ -1,10 +1,15 @@
 # TO-DO
 
-TEST STORY - 41341353
+```markdown
+TEST STORIES
+
+- with many comments -> 41341353
+- with body/text -> 41482793
+```
 
 ## Pending
 
-- [ ]
+- [ ] Collapse comments (and children).
 - [ ] Subscribing to comments.
   - Resources:
     - Alert bot for Telegram - [HackerNews-Alert-Bot](https://github.com/lawxls/HackerNews-Alerts-Bot)
@@ -14,7 +19,8 @@ TEST STORY - 41341353
 
 ## Complete
 
-- `2024.09.05` [x] Manage the Job story type.
+- [x] `2024.09.09` Handle stories with body/text.
+- [x] `2024.09.05` Manage the Job story type.
   - [x] Remove voting
   - [x] Remove comments
   - [x] On navigate straight to link on card tap for job stories.

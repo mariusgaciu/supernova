@@ -10,8 +10,6 @@ function TempSetting(props) {
 
   const { options, setCommentSorting, setOpenLinkWith } = useStoreOptions();
 
-  console.log('LINK', options);
-
   const [isEnabled, setIsEnabled] = useState(options.openLinkWith);
   const toggleSwitch = () => {
     setOpenLinkWith(!options.openLinkWith);
