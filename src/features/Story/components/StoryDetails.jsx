@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { FlashList } from '@shopify/flash-list';
 
 import { CONFIG } from '@config';
 import { ActivityIndicator, Separator, RefreshControl } from '@components';
@@ -45,17 +44,16 @@ function StoryDetails({ id }) {
 
   const renderItem = useCallback(
     ({ item }) => (
-      <View>
-        <CommentItem
-          ancestors={item.ancestors}
-          id={item.id}
-          depth={item.depth}
-          user={item.author}
-          totalReplies={item.number_of_replies}
-          timestamp={item.created_at}
-          comment={item.text}
-        />
-      </View>
+      <CommentItem
+        ancestors={item.ancestors}
+        id={item.id}
+        depth={item.depth}
+        user={item.author}
+        totalReplies={item.number_of_replies}
+        timestamp={item.created_at}
+        comment={item.text}
+        collapsedParent={item.collapsedParent}
+      />
     ),
     []
   );
@@ -67,14 +65,10 @@ function StoryDetails({ id }) {
   return (
     <View style={styles.mainContainer}>
       <FlatList
-        // initialNumToRender={100}
-        // removeClippedSubviews={true}
+        removeClippedSubviews={true}
         decelerationRate="fast"
-        // estimatedItemSize={110}
-        // windowSize={windowSize}
-        // initialNumToRender={10}
-        // maxToRenderPerBatch={windowSize}
-        // updateCellsBatchingPeriod={25}
+        windowSize={3}
+        maxToRenderPerBatch={10}
         ListHeaderComponent={
           <StoryHeader
             url={data.url}

@@ -12,36 +12,37 @@ export const useStoreComments = create((set) => ({
   },
   setCommentCollapsed: (id, collapsed) =>
     set((state) => {
-      const startDate = new Date();
       const { comments, idToIndex } = state;
       const commentIndex = idToIndex[id];
 
       if (commentIndex === undefined) return;
 
-      const updatedComments = [...state.comments];
+      const updatedComments = comments.slice();
 
-      // Start iterating only after the comment with the matching id
+      // Update the collapsedParent of the target comment
+      const targetComment = comments[commentIndex];
+      updatedComments[commentIndex] = {
+        ...targetComment,
+        collapsedParent: collapsed,
+      };
+
+      // Update the collapsed state of child comments
       for (let i = commentIndex + 1; i < comments.length; i++) {
         const comment = comments[i];
 
-        const isVisible = comment.ancestors.some(
-          (ancestorId) => ancestorId === id
-        );
-
-        if (!isVisible) {
-          // Stop iterating once we hit a comment that doesn't have the id in ancestors
+        // If the comment is not a descendant, break the loop
+        if (!comment.ancestors.includes(id)) {
           break;
         }
 
-        updatedComments[i] = {
-          ...comment,
-          collapsed: collapsed ? isVisible : !isVisible,
-        };
+        // Only update if the collapsed state has changed
+        if (comment.collapsed !== collapsed) {
+          updatedComments[i] = {
+            ...comment,
+            collapsed: collapsed,
+          };
+        }
       }
-
-      const endDate = new Date();
-      const timeDiff = endDate - startDate;
-      console.log(startDate, endDate, 'Time taken:', timeDiff, 'ms');
 
       return { comments: updatedComments };
     }),

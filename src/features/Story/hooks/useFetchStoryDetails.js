@@ -39,6 +39,7 @@ export const useFetchStoryDetails = ({ id }) => {
               depth: depth,
               no_of_replies: children.length,
               collapsed: false,
+              collapsedParent: false,
               ancestors: [...ancestors], // Include ancestor IDs here
             });
 
