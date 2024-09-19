@@ -30,8 +30,6 @@ function StoryHeader({
     console.log(`Upvote ${title}`);
   };
 
-  console.log('HEY', titlePrefix);
-
   return (
     <View
       style={[

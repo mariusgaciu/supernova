@@ -1,25 +1,37 @@
-import React, { memo } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { memo, useState } from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  LayoutAnimation,
+} from 'react-native';
 
-import { Button, Separator } from '@components';
+import { useStoreComments } from '../services/store';
+import { Button } from '@components';
 import { useStyles } from '@hooks';
 import { HTMLRenderer } from '@libs';
 import { getReadableDateFromUTC } from '@utils';
 
-function CommentItem({ user, depth, totalReplies, timestamp, comment }) {
+function CommentItem({ id, user, depth, totalReplies, timestamp, comment }) {
+  const [collapsed, setCollapsed] = useState(false);
+  const { comments, setCommentCollapsed } = useStoreComments();
+
   const { defaultStyles } = useStyles();
+
+  // const anyCollapsed = comments.find((comment) => comment.id === id).collapsed;
+
+  // console.log('COLLAPSED ', anyCollapsed, id);
 
   const time = getReadableDateFromUTC(timestamp);
   const isFirstLevel = depth === 0;
   const indentation = [...Array(depth).keys()];
 
   const handleUserPress = () => {
-    // TODO: Add navigation to profile.
     console.log(`Navigate to ${user}'s profile.`);
   };
 
   const handleTimePress = () => {
-    // TODO: - Pressing this would filter all comments between the time of the story and present
     console.log(`All comments until ${timestamp}`);
   };
 
@@ -35,6 +47,19 @@ function CommentItem({ user, depth, totalReplies, timestamp, comment }) {
     console.log(`Comment has been saved.`);
   };
 
+  const toggleCollapse = () => {
+    const startDate = new Date();
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    const newState = !collapsed;
+    setCollapsed(newState);
+    setCommentCollapsed(id, newState);
+    const endDate = new Date();
+    const timeTaken = endDate - startDate;
+    console.log(`Time taken to collapse: ${timeTaken}ms`);
+  };
+
+  // if (anyCollapsed) return null;
+
   return (
     <View style={[styles.mainContainer]}>
       {indentation.map((value, index) => (
@@ -49,7 +74,10 @@ function CommentItem({ user, depth, totalReplies, timestamp, comment }) {
       ))}
 
       <View style={styles.commentWrapper}>
-        <View style={styles.topDetailsContainer}>
+        <TouchableOpacity
+          style={styles.topDetailsContainer}
+          onPress={toggleCollapse}
+        >
           <Button
             variant={'icon-label'}
             size="small"
@@ -67,37 +95,43 @@ function CommentItem({ user, depth, totalReplies, timestamp, comment }) {
             onPress={handleTimePress}
           />
           <Text style={defaultStyles.lbPrimary}>{totalReplies}</Text>
-          <Text style={defaultStyles.lbPrimary}> Depth: {depth}</Text>
-        </View>
-        <View style={[styles.commentContainer]}>
-          <HTMLRenderer content={comment} />
-          <View style={styles.bottomDetailsContainer}>
-            <Button
-              variant={isFirstLevel ? 'icon-label' : 'icon'}
-              size="small"
-              labelColor={defaultStyles.lbTertiary.color}
-              label={'Save'}
-              icon={'bookmark-outline'}
-              onPress={handleSavePress}
-            />
-            <Button
-              variant={isFirstLevel ? 'icon-label' : 'icon'}
-              size="small"
-              labelColor={defaultStyles.lbTertiary.color}
-              label={'Reply'}
-              icon={'arrow-undo-outline'}
-              onPress={handleReplyPress}
-            />
-            <Button
-              variant={isFirstLevel ? 'icon-label' : 'icon'}
-              size="small"
-              labelColor={defaultStyles.lbTertiary.color}
-              label={'Vote'}
-              icon={'arrow-up-circle-outline'}
-              onPress={handleVotePress}
-            />
+          <Text style={defaultStyles.lbPrimary}>
+            {' '}
+            Depth: {depth} ID: {id}
+          </Text>
+        </TouchableOpacity>
+
+        {!collapsed && (
+          <View style={[styles.commentContainer]}>
+            <HTMLRenderer content={comment} />
+            <View style={styles.bottomDetailsContainer}>
+              <Button
+                variant={isFirstLevel ? 'icon-label' : 'icon'}
+                size="small"
+                labelColor={defaultStyles.lbTertiary.color}
+                label={'Save'}
+                icon={'bookmark-outline'}
+                onPress={handleSavePress}
+              />
+              <Button
+                variant={isFirstLevel ? 'icon-label' : 'icon'}
+                size="small"
+                labelColor={defaultStyles.lbTertiary.color}
+                label={'Reply'}
+                icon={'arrow-undo-outline'}
+                onPress={handleReplyPress}
+              />
+              <Button
+                variant={isFirstLevel ? 'icon-label' : 'icon'}
+                size="small"
+                labelColor={defaultStyles.lbTertiary.color}
+                label={'Vote'}
+                icon={'arrow-up-circle-outline'}
+                onPress={handleVotePress}
+              />
+            </View>
           </View>
-        </View>
+        )}
       </View>
     </View>
   );

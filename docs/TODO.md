@@ -10,6 +10,9 @@ TEST STORIES
 ## Pending
 
 - [ ] Collapse comments (and children).
+- [ ] Links
+  - [ ] Check how links in comments or stories are handled.
+  - [ ] Handle press on links in story header.
 - [ ] Subscribing to comments.
   - Resources:
     - Alert bot for Telegram - [HackerNews-Alert-Bot](https://github.com/lawxls/HackerNews-Alerts-Bot)

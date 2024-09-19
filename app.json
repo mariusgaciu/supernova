@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+       "bundleIdentifier": "com.supernova.ios",
     },
     "android": {
       "adaptiveIcon": {
@@ -37,10 +38,6 @@
         }
       ]
     ],
-    "extra": {
-      "eas": {
-        "projectId": "d66984c0-8ef4-4af7-8b9c-3b06d76b3a0c"
-      }
-    }
+
   }
 }
