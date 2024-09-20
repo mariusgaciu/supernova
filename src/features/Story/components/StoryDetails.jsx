@@ -14,8 +14,6 @@ function StoryDetails({ id }) {
     CONFIG.COMMENTS_PER_LOAD
   );
   const { comments } = useStoreComments();
-  // console.log('COMM ', comments);
-  console.log('________');
 
   const { defaultStyles } = useStyles();
 

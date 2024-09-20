@@ -8,6 +8,8 @@ import {
   CaretUpOutline,
   ChatBoxOutline,
   ChatBubbleOutline,
+  ChevronCollapseOutline,
+  ChevronExpandOutline,
   DiceOutline,
   FitnessOutline,
   HeartOutline,
@@ -36,6 +38,8 @@ const icons = {
   'caret-up-outline': CaretUpOutline,
   'chat-box-outline': ChatBoxOutline,
   'chat-bubble-outline': ChatBubbleOutline,
+  'chevron-collapse-outline': ChevronCollapseOutline,
+  'chevron-expand-outline': ChevronExpandOutline,
   'dice-outline': DiceOutline,
   'fitness-outline': FitnessOutline,
   'heart-outline': HeartOutline,
@@ -56,7 +60,7 @@ const icons = {
 /**
  * Get an SVG icon based on the given name, size, and color.
  * @param {Object} props
- * @param { 'bookmark-outline' | 'arrow-undo-outline' | 'arrow-up-circle-fill' | 'arrow-up-circle-outline' | 'arrow-up-outline' | 'caret-up-outline' | 'chat-box-outline' | 'chat-bubble-outline' | 'fitness-outline' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
+ * @param { 'bookmark-outline' | 'arrow-undo-outline' | 'arrow-up-circle-fill' | 'arrow-up-circle-outline' | 'arrow-up-outline' | 'caret-up-outline' | 'chat-box-outline' | 'chat-bubble-outline' | 'chevron-collapse-outline' | 'chevron-expand-outline' | 'fitness-outline' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
  * @param {number} props.size - The size of the icon in pixels.
  * @param {string} props.color - The color of the icon.
  */

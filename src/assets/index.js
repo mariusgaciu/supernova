@@ -6,6 +6,8 @@ import SVGBookmarkOutline from './icons/bookmark-outline.svg';
 import SVGCaretUpOutline from './icons/caret-up-outline.svg';
 import SVGChatBoxOutline from './icons/chatbox-outline.svg';
 import SVGChatBubbleOutline from './icons/chatbubble-outline.svg';
+import SVGChevronCollapseOutline from './icons/chevron-collapse-outline.svg';
+import SVGChevronExpandOutline from './icons/chevron-expand-outline.svg';
 import SVGDiceOutline from './icons/dice-outline.svg';
 import SVGFitnessOutline from './icons/fitness-outline.svg';
 import SVGHeartOutline from './icons/heart-outline.svg';
@@ -44,6 +46,8 @@ export {
   SVGCaretUpOutline as CaretUpOutline,
   SVGChatBoxOutline as ChatBoxOutline,
   SVGChatBubbleOutline as ChatBubbleOutline,
+  SVGChevronCollapseOutline as ChevronCollapseOutline,
+  SVGChevronExpandOutline as ChevronExpandOutline,
   SVGDiceOutline as DiceOutline,
   SVGFitnessOutline as FitnessOutline,
   SVGHeartOutline as HeartOutline,

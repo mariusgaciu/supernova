@@ -23,6 +23,12 @@ function CommentItem({
   const time = getReadableDateFromUTC(timestamp);
   const isFirstLevel = depth === 0;
   const indentation = useMemo(() => [...Array(depth).keys()], [depth]);
+  const collapseIcon = collapsedParent
+    ? 'chevron-expand-outline'
+    : 'chevron-collapse-outline';
+  const collapseLabel = collapsedParent ? `[${depth}]` : '[---]';
+
+  console.log('Num', totalReplies);
 
   const handleUserPress = useCallback(() => {
     console.log(`Navigate to ${user}'s profile.`);
@@ -63,32 +69,34 @@ function CommentItem({
       ))}
 
       <View style={styles.commentWrapper}>
-        <TouchableOpacity
-          style={styles.topDetailsContainer}
-          onPress={handleToggleCollapse}
-        >
+        <View style={styles.topDetailsContainer}>
+          <View style={styles.topDetailsLeft}>
+            <Button
+              variant={'icon-label'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={'sadasdasdasdaasdasddddd' + user}
+              icon={'person-circle-outline'}
+              onPress={handleUserPress}
+            />
+            <Button
+              variant={'icon-label'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={time}
+              icon={'time-outline'}
+              onPress={handleTimePress}
+            />
+          </View>
           <Button
             variant={'icon-label'}
             size="small"
             labelColor={defaultStyles.lbTertiary.color}
-            label={user}
-            icon={'person-circle-outline'}
-            onPress={handleUserPress}
+            label={collapseLabel}
+            icon={collapseIcon}
+            onPress={handleToggleCollapse}
           />
-          <Button
-            variant={'icon-label'}
-            size="small"
-            labelColor={defaultStyles.lbTertiary.color}
-            label={time}
-            icon={'time-outline'}
-            onPress={handleTimePress}
-          />
-          <Text style={defaultStyles.lbPrimary}>{totalReplies}</Text>
-          <Text style={defaultStyles.lbPrimary}>
-            {' '}
-            Depth: {depth} ID: {id}
-          </Text>
-        </TouchableOpacity>
+        </View>
 
         {!collapsedParent && (
           <View style={[styles.commentContainer]}>
@@ -138,7 +146,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topDetailsContainer: {
+    flex: 1,
     paddingVertical: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  topDetailsLeft: {
+    flex: 1,
     flexDirection: 'row',
   },
   commentContainer: {

@@ -9,7 +9,7 @@ TEST STORIES
 
 ## Pending
 
-- [ ] Collapse comments (and children).
+- [ ] Trail username if its longer than - check ui size.
 - [ ] Links
   - [ ] Check how links in comments or stories are handled.
   - [ ] Handle press on links in story header.
@@ -22,6 +22,7 @@ TEST STORIES
 
 ## Complete
 
+- [x] `2024.09.19` Collapse comments (and children).
 - [x] `2024.09.09` Handle stories with body/text.
 - [x] `2024.09.05` Manage the Job story type.
   - [x] Remove voting
