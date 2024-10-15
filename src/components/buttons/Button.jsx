@@ -21,6 +21,7 @@ function Button({
   styleText,
   color,
   labelColor,
+  disabledLabelColor,
   variant = 'label',
   size = 'medium',
   label = 'Button',
@@ -58,7 +59,11 @@ function Button({
         {(variant === 'icon-label' || variant === 'icon') && (
           <Icon
             name={icon}
-            color={!!labelColor && labelColor}
+            color={
+              disabled && !!disabledLabelColor
+                ? disabledLabelColor
+                : !!labelColor && labelColor
+            }
             size={sizeIcon}
           />
         )}
@@ -77,7 +82,9 @@ function Button({
               : size === 'medium'
               ? defaultStyles.subheader
               : size === 'large' && defaultStyles.body,
-            !!labelColor && { color: labelColor },
+            disabled && !!disabledLabelColor
+              ? { color: disabledLabelColor }
+              : !!labelColor && { color: labelColor },
           ]}
         >
           {variant !== 'icon' && label}

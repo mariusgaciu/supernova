@@ -7,50 +7,36 @@ import StoryHeader from './StoryHeader';
 import CommentItem from './CommentItem';
 import { useFetchStoryDetails } from '../hooks/useFetchStoryDetails';
 import { useStyles } from '@hooks';
-import { useStoreComments } from '../services/store';
 
 function StoryDetails({ id }) {
+  const { defaultStyles } = useStyles();
+
   const [visibleComments, setVisibleComments] = useState(
     CONFIG.COMMENTS_PER_LOAD
   );
-  const { comments } = useStoreComments();
-
-  const { defaultStyles } = useStyles();
 
   const { data, isLoading, isRefreshing, isError, lastRefreshed, refresh } =
     useFetchStoryDetails({ id });
 
   const visibleItems = useMemo(() => {
-    return comments
+    return data?.children
       .filter((comment) => !comment.collapsed)
       .slice(0, visibleComments);
-  }, [comments, visibleComments]);
-
-  const totalVisibleComments = useMemo(() => {
-    return comments.filter((comment) => comment.visible).length;
-  }, [comments]);
-
-  const isEndReached = visibleItems.length >= totalVisibleComments;
-
-  const handleOnEndReached = useCallback(() => {
-    setVisibleComments((prev) => prev + CONFIG.COMMENTS_PER_LOAD);
-  }, []);
-
-  const windowSize = visibleItems?.length >= 50 ? visibleItems.length / 4 : 50;
+  }, [data?.children, visibleComments]);
 
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
   const renderItem = useCallback(
     ({ item }) => (
       <CommentItem
-        ancestors={item.ancestors}
         id={item.id}
         depth={item.depth}
         user={item.author}
-        totalReplies={item.number_of_replies}
+        noOfReplies={item.noOfReplies}
         timestamp={item.created_at}
         comment={item.text}
-        collapsedParent={item.collapsedParent}
+        childrenIds={item.childrenIds}
+        directChildrenIds={item.directChildrenIds}
       />
     ),
     []
@@ -63,10 +49,7 @@ function StoryDetails({ id }) {
   return (
     <View style={styles.mainContainer}>
       <FlatList
-        removeClippedSubviews={true}
-        decelerationRate="fast"
-        windowSize={3}
-        maxToRenderPerBatch={10}
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <StoryHeader
             url={data.url}
@@ -80,20 +63,20 @@ function StoryDetails({ id }) {
         }
         ListFooterComponent={
           <View>
-            {isEndReached ? (
+            {false ? (
               <Separator style={defaultStyles.bgPrimary} height={25} />
             ) : (
-              <ActivityIndicator size="small" isEndReached={isEndReached} />
+              <ActivityIndicator size="small" isEndReached={false} />
             )}
           </View>
         }
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
         }
-        data={visibleItems}
+        data={data.children}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
-        onEndReached={handleOnEndReached}
+        // onEndReached={handleOnEndReached}
       />
     </View>
   );

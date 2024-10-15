@@ -4,6 +4,7 @@ import {
   TAB_NAME,
   TAB_TITLE,
   TITLE_PREFIXES,
+  BUTTON_LABELS,
 } from './Constants';
 import * as Colors from './Colours';
 import { FontStyles } from './Styles';
@@ -16,4 +17,5 @@ export {
   TAB_NAME,
   TAB_TITLE,
   TITLE_PREFIXES,
+  BUTTON_LABELS,
 };

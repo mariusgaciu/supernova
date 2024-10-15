@@ -1,6 +1,13 @@
 import React, { memo, useMemo, useCallback } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  LayoutAnimation,
+} from 'react-native';
 
+import { BUTTON_LABELS } from '@config';
 import { useStoreComments } from '../services/store';
 import { Button } from '@components';
 import { useStyles } from '@hooks';
@@ -11,24 +18,24 @@ function CommentItem({
   id,
   user,
   depth,
-  totalReplies,
+  noOfReplies,
   timestamp,
   comment,
-  collapsedParent,
+  childrenIds,
+  directChildrenIds,
 }) {
-  const { setCommentCollapsed } = useStoreComments();
+  const { getCommentStore, setCommentsCollapsed, setCommentChildrenCollapsed } =
+    useStoreComments();
+
+  const useStoreComment = getCommentStore(id);
+  const { collapsed, collapsedChildren } = useStoreComment();
 
   const { defaultStyles } = useStyles();
 
   const time = getReadableDateFromUTC(timestamp);
   const isFirstLevel = depth === 0;
   const indentation = useMemo(() => [...Array(depth).keys()], [depth]);
-  const collapseIcon = collapsedParent
-    ? 'chevron-expand-outline'
-    : 'chevron-collapse-outline';
-  const collapseLabel = collapsedParent ? `[${depth}]` : '[---]';
-
-  console.log('Num', totalReplies);
+  const isCommentCollapsedDisabled = noOfReplies === 0;
 
   const handleUserPress = useCallback(() => {
     console.log(`Navigate to ${user}'s profile.`);
@@ -50,10 +57,17 @@ function CommentItem({
     console.log(`Comment has been saved.`);
   }, []);
 
-  const handleToggleCollapse = useCallback(() => {
-    // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setCommentCollapsed(id, !collapsedParent);
-  }, [id, collapsedParent]);
+  const handleToggleCollapsedComments = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setCommentChildrenCollapsed(id, !collapsedChildren);
+    if (collapsedChildren) {
+      setCommentsCollapsed(directChildrenIds, !collapsedChildren);
+    } else if (!collapsedChildren) {
+      setCommentsCollapsed(childrenIds, !collapsedChildren);
+    }
+  };
+
+  if (collapsed) return null;
 
   return (
     <View style={[styles.mainContainer]}>
@@ -70,65 +84,65 @@ function CommentItem({
 
       <View style={styles.commentWrapper}>
         <View style={styles.topDetailsContainer}>
-          <View style={styles.topDetailsLeft}>
-            <Button
-              variant={'icon-label'}
-              size="small"
-              labelColor={defaultStyles.lbTertiary.color}
-              label={'sadasdasdasdaasdasddddd' + user}
-              icon={'person-circle-outline'}
-              onPress={handleUserPress}
-            />
-            <Button
-              variant={'icon-label'}
-              size="small"
-              labelColor={defaultStyles.lbTertiary.color}
-              label={time}
-              icon={'time-outline'}
-              onPress={handleTimePress}
-            />
-          </View>
           <Button
             variant={'icon-label'}
             size="small"
             labelColor={defaultStyles.lbTertiary.color}
-            label={collapseLabel}
-            icon={collapseIcon}
-            onPress={handleToggleCollapse}
+            label={
+              user + ' - ' + id + ' ' + collapsed + ' ' + collapsedChildren
+            }
+            icon={'person-circle-outline'}
+            onPress={handleUserPress}
+          />
+          <Button
+            variant={'icon-label'}
+            size="small"
+            labelColor={defaultStyles.lbTertiary.color}
+            label={time}
+            icon={'time-outline'}
+            onPress={handleTimePress}
           />
         </View>
 
-        {!collapsedParent && (
-          <View style={[styles.commentContainer]}>
-            <HTMLRenderer content={comment} />
-            <View style={styles.bottomDetailsContainer}>
-              <Button
-                variant={isFirstLevel ? 'icon-label' : 'icon'}
-                size="small"
-                labelColor={defaultStyles.lbTertiary.color}
-                label={'Save'}
-                icon={'bookmark-outline'}
-                onPress={handleSavePress}
-              />
-              <Button
-                variant={isFirstLevel ? 'icon-label' : 'icon'}
-                size="small"
-                labelColor={defaultStyles.lbTertiary.color}
-                label={'Reply'}
-                icon={'arrow-undo-outline'}
-                onPress={handleReplyPress}
-              />
-              <Button
-                variant={isFirstLevel ? 'icon-label' : 'icon'}
-                size="small"
-                labelColor={defaultStyles.lbTertiary.color}
-                label={'Vote'}
-                icon={'arrow-up-circle-outline'}
-                onPress={handleVotePress}
-              />
-            </View>
+        <View style={[styles.commentContainer]}>
+          <HTMLRenderer content={comment} />
+          <View style={styles.bottomDetailsContainer}>
+            <Button
+              variant={isFirstLevel ? 'icon-label' : 'icon'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={BUTTON_LABELS.SAVE}
+              icon={'bookmark-outline'}
+              onPress={handleSavePress}
+            />
+            <Button
+              variant={isFirstLevel ? 'icon-label' : 'icon'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={BUTTON_LABELS.REPLY}
+              icon={'arrow-undo-outline'}
+              onPress={handleReplyPress}
+            />
+            <Button
+              variant={isFirstLevel ? 'icon-label' : 'icon'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={'Vote'}
+              icon={'arrow-up-circle-outline'}
+              onPress={handleVotePress}
+            />
+            <Button
+              variant={'icon-label'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              disabledLabelColor={defaultStyles.lbQuaternary.color}
+              label={noOfReplies}
+              icon={'chat-bubble-outline'}
+              disabled={isCommentCollapsedDisabled}
+              onPress={handleToggleCollapsedComments}
+            />
           </View>
-        )}
+        </View>
       </View>
     </View>
   );
@@ -136,8 +150,12 @@ function CommentItem({
 
 const styles = StyleSheet.create({
   mainContainer: {
+    flex: 1,
     marginHorizontal: 6,
     flexDirection: 'row',
+  },
+  mainContainerCollapsed: {
+    height: 0,
   },
   indentation: {
     width: 1,
@@ -149,7 +167,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 5,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   topDetailsLeft: {
     flex: 1,
@@ -178,4 +196,4 @@ function areEqual(prevProps, nextProps) {
   );
 }
 
-export default memo(CommentItem, areEqual);
+export default memo(CommentItem);
