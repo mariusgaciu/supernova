@@ -1,7 +1,7 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useEffect, useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import { CONFIG } from '@config';
+import { useStoreComments } from '../services/store';
 import { ActivityIndicator, Separator, RefreshControl } from '@components';
 import StoryHeader from './StoryHeader';
 import CommentItem from './CommentItem';
@@ -10,19 +10,52 @@ import { useStyles } from '@hooks';
 
 function StoryDetails({ id }) {
   const { defaultStyles } = useStyles();
+  const { comments, initialComments, setComments } = useStoreComments();
 
-  const [visibleComments, setVisibleComments] = useState(
-    CONFIG.COMMENTS_PER_LOAD
-  );
+  const [collapsedComments, setCollapsedComments] = useState({});
 
   const { data, isLoading, isRefreshing, isError, lastRefreshed, refresh } =
     useFetchStoryDetails({ id });
 
-  const visibleItems = useMemo(() => {
-    return data?.children
-      .filter((comment) => !comment.collapsed)
-      .slice(0, visibleComments);
-  }, [data?.children, visibleComments]);
+  const toggleCollapse = useCallback((commentId) => {
+    setCollapsedComments((prev) => {
+      const newCollapsed = { ...prev };
+      newCollapsed[commentId] = !newCollapsed[commentId];
+      return newCollapsed;
+    });
+  }, []);
+
+  const updateVisibleComments = useCallback(() => {
+    let visible = [];
+    let depthStack = []; // This will store the id of the collapsed comments at each depth level
+
+    for (let comment of initialComments) {
+      // If we have a comment collapsed at this depth or higher, skip this comment
+      if (
+        depthStack.length > 0 &&
+        comment.depth > depthStack[depthStack.length - 1].depth
+      ) {
+        continue;
+      }
+
+      visible.push(comment);
+
+      // If the comment is collapsed, add it to the stack
+      if (collapsedComments[comment.id]) {
+        depthStack.push(comment);
+      } else {
+        // If we are back to a higher level comment, remove from the stack
+        while (
+          depthStack.length > 0 &&
+          depthStack[depthStack.length - 1].depth >= comment.depth
+        ) {
+          depthStack.pop();
+        }
+      }
+    }
+
+    setComments(visible);
+  }, [collapsedComments]);
 
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
@@ -32,15 +65,20 @@ function StoryDetails({ id }) {
         id={item.id}
         depth={item.depth}
         user={item.author}
-        noOfReplies={item.noOfReplies}
         timestamp={item.created_at}
         comment={item.text}
-        childrenIds={item.childrenIds}
-        directChildrenIds={item.directChildrenIds}
+        isCollapsed={!!collapsedComments[item.id]}
+        onToggleCollapse={toggleCollapse}
       />
     ),
-    []
+    [toggleCollapse, collapsedComments]
   );
+
+  useEffect(() => {
+    updateVisibleComments();
+  }, [collapsedComments, updateVisibleComments]);
+
+  const memoizedVisibleComments = useMemo(() => comments, [comments]);
 
   if (isLoading) return <ActivityIndicator />;
 
@@ -49,6 +87,10 @@ function StoryDetails({ id }) {
   return (
     <View style={styles.mainContainer}>
       <FlatList
+        initialNumToRender={20}
+        maxToRenderPerBatch={20}
+        updateCellsBatchingPeriod={50}
+        windowSize={21}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <StoryHeader
@@ -73,7 +115,7 @@ function StoryDetails({ id }) {
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
         }
-        data={data.children}
+        data={memoizedVisibleComments}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         // onEndReached={handleOnEndReached}
