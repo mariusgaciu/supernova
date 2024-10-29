@@ -1,7 +1,13 @@
 import React, { memo, useMemo, useCallback } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  LayoutAnimation,
+} from 'react-native';
 
-import { useStoreComments } from '../services/store';
+import { BUTTON_LABELS } from '@config';
 import { Button } from '@components';
 import { useStyles } from '@hooks';
 import { HTMLRenderer } from '@libs';
@@ -11,24 +17,19 @@ function CommentItem({
   id,
   user,
   depth,
-  totalReplies,
   timestamp,
   comment,
-  collapsedParent,
+  isCollapsed,
+  onToggleCollapse,
 }) {
-  const { setCommentCollapsed } = useStoreComments();
-
   const { defaultStyles } = useStyles();
 
   const time = getReadableDateFromUTC(timestamp);
   const isFirstLevel = depth === 0;
   const indentation = useMemo(() => [...Array(depth).keys()], [depth]);
-  const collapseIcon = collapsedParent
-    ? 'chevron-expand-outline'
-    : 'chevron-collapse-outline';
-  const collapseLabel = collapsedParent ? `[${depth}]` : '[---]';
+  const collapseLabel = isCollapsed ? 'Uncollapse' : 'Collapse';
 
-  console.log('Num', totalReplies);
+  console.log('WHATABOUTME', id, isCollapsed);
 
   const handleUserPress = useCallback(() => {
     console.log(`Navigate to ${user}'s profile.`);
@@ -50,10 +51,9 @@ function CommentItem({
     console.log(`Comment has been saved.`);
   }, []);
 
-  const handleToggleCollapse = useCallback(() => {
-    // LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setCommentCollapsed(id, !collapsedParent);
-  }, [id, collapsedParent]);
+  const handleToggleCollapse = () => {
+    onToggleCollapse(id);
+  };
 
   return (
     <View style={[styles.mainContainer]}>
@@ -70,35 +70,32 @@ function CommentItem({
 
       <View style={styles.commentWrapper}>
         <View style={styles.topDetailsContainer}>
-          <View style={styles.topDetailsLeft}>
-            <Button
-              variant={'icon-label'}
-              size="small"
-              labelColor={defaultStyles.lbTertiary.color}
-              label={'sadasdasdasdaasdasddddd' + user}
-              icon={'person-circle-outline'}
-              onPress={handleUserPress}
-            />
-            <Button
-              variant={'icon-label'}
-              size="small"
-              labelColor={defaultStyles.lbTertiary.color}
-              label={time}
-              icon={'time-outline'}
-              onPress={handleTimePress}
-            />
-          </View>
           <Button
             variant={'icon-label'}
             size="small"
             labelColor={defaultStyles.lbTertiary.color}
+            label={user + ' ' + id}
+            icon={'person-circle-outline'}
+            onPress={handleUserPress}
+          />
+          <Button
+            variant={'icon-label'}
+            size="small"
+            labelColor={defaultStyles.lbTertiary.color}
+            label={time}
+            icon={'time-outline'}
+            onPress={handleTimePress}
+          />
+          <Button
+            // variant={'icon-label'}
+            size="small"
+            labelColor={defaultStyles.lbTertiary.color}
             label={collapseLabel}
-            icon={collapseIcon}
+            icon={'time-outline'}
             onPress={handleToggleCollapse}
           />
         </View>
-
-        {!collapsedParent && (
+        {!isCollapsed && (
           <View style={[styles.commentContainer]}>
             <HTMLRenderer content={comment} />
             <View style={styles.bottomDetailsContainer}>
@@ -106,7 +103,7 @@ function CommentItem({
                 variant={isFirstLevel ? 'icon-label' : 'icon'}
                 size="small"
                 labelColor={defaultStyles.lbTertiary.color}
-                label={'Save'}
+                label={BUTTON_LABELS.SAVE}
                 icon={'bookmark-outline'}
                 onPress={handleSavePress}
               />
@@ -114,7 +111,7 @@ function CommentItem({
                 variant={isFirstLevel ? 'icon-label' : 'icon'}
                 size="small"
                 labelColor={defaultStyles.lbTertiary.color}
-                label={'Reply'}
+                label={BUTTON_LABELS.REPLY}
                 icon={'arrow-undo-outline'}
                 onPress={handleReplyPress}
               />
@@ -136,8 +133,12 @@ function CommentItem({
 
 const styles = StyleSheet.create({
   mainContainer: {
+    flex: 1,
     marginHorizontal: 6,
     flexDirection: 'row',
+  },
+  mainContainerCollapsed: {
+    height: 0,
   },
   indentation: {
     width: 1,
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 5,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   topDetailsLeft: {
     flex: 1,
@@ -167,15 +168,4 @@ const styles = StyleSheet.create({
   },
 });
 
-// Custom comparison function for React.memo
-function areEqual(prevProps, nextProps) {
-  return (
-    prevProps.id === nextProps.id &&
-    prevProps.collapsedParent === nextProps.collapsedParent &&
-    prevProps.totalReplies === nextProps.totalReplies &&
-    prevProps.comment === nextProps.comment &&
-    prevProps.depth === nextProps.depth
-  );
-}
-
-export default memo(CommentItem, areEqual);
+export default memo(CommentItem);

@@ -35,3 +35,11 @@ export const TITLE_PREFIXES = [
   'Discuss HN:',
   'Poll HN:',
 ];
+
+export const BUTTON_LABELS = {
+  COMMENT: 'Comment',
+  COMMENTS: 'Comments',
+  REPLY: 'Reply',
+  SAVE: 'Save',
+  VOTE: 'Vote',
+};

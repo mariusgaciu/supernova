@@ -9,13 +9,14 @@ import { set } from 'date-fns';
 export const useFetchStoryDetails = ({ id }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastRefreshed, setLastRefreshed] = useState(Date.now());
-  const { setComments } = useStoreComments();
+  const { setInitialComments, setCommentsDepthMap } = useStoreComments();
 
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ['storyDetails', id],
     queryFn: () => Promise.all([getStoryDetails({ id }), getStory({ id })]),
     onSuccess: (data) => {
-      return setComments(data.children);
+      setCommentsDepthMap(data.commentsDepthMap);
+      setInitialComments(data.children);
     },
     select: (data) => {
       const [storyDetails, story] = data;
@@ -27,46 +28,43 @@ export const useFetchStoryDetails = ({ id }) => {
           storyDetails.children
         );
 
-        const flattenComments = (comments, depth = 0, ancestors = []) => {
-          let flattened = [];
+        const flattenComments = (comments, depth = 0) => {
+          let result = [];
 
-          for (const comment of comments) {
-            const { children, ...rest } = comment;
+          comments.forEach((comment) => {
+            let newComment = { ...comment, depth };
 
-            // Add the current ancestors to the comment
-            flattened.push({
-              ...rest,
-              depth: depth,
-              no_of_replies: children.length,
-              collapsed: false,
-              collapsedParent: false,
-              ancestors: [...ancestors], // Include ancestor IDs here
-            });
+            delete newComment.children;
+            result.push(newComment);
 
-            if (children && children.length > 0) {
-              // Pass down the ancestor IDs, including the current comment's ID
-              flattened = flattened.concat(
-                flattenComments(children, depth + 1, [...ancestors, comment.id])
+            if (comment.children && comment.children.length > 0) {
+              result = result.concat(
+                flattenComments(comment.children, depth + 1)
               );
             }
-          }
-
-          return flattened;
+          });
+          return result;
         };
 
         const flattenedComments = flattenComments(sortedComments);
+
+        const depthMap = flattenedComments.reduce((acc, comment) => {
+          acc[comment.id] = comment.depth;
+          return acc;
+        }, {});
 
         return {
           ...storyDetails,
           children: flattenedComments,
           descendants: story.descendants,
+          commentsDepthMap: depthMap,
+        };
+      } else {
+        return {
+          ...storyDetails,
+          descendants: story.descendants,
         };
       }
-
-      return {
-        ...storyDetails,
-        descendants: story.descendants,
-      };
     },
   });
 

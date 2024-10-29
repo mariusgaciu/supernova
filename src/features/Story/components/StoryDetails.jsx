@@ -1,72 +1,102 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState, useEffect, useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-
-import { CONFIG } from '@config';
+import { useStoreComments } from '../services/store';
 import { ActivityIndicator, Separator, RefreshControl } from '@components';
 import StoryHeader from './StoryHeader';
 import CommentItem from './CommentItem';
 import { useFetchStoryDetails } from '../hooks/useFetchStoryDetails';
 import { useStyles } from '@hooks';
-import { useStoreComments } from '../services/store';
 
 function StoryDetails({ id }) {
-  const [visibleComments, setVisibleComments] = useState(
-    CONFIG.COMMENTS_PER_LOAD
-  );
-  const { comments } = useStoreComments();
-
   const { defaultStyles } = useStyles();
-
+  const {
+    comments,
+    initialComments,
+    commentsDepthMap: commentDepthMap,
+    setComments,
+  } = useStoreComments();
+  const [collapsedComments, setCollapsedComments] = useState({});
   const { data, isLoading, isRefreshing, isError, lastRefreshed, refresh } =
     useFetchStoryDetails({ id });
 
-  const visibleItems = useMemo(() => {
-    return comments
-      .filter((comment) => !comment.collapsed)
-      .slice(0, visibleComments);
-  }, [comments, visibleComments]);
+  const toggleCollapseAndUpdateComments = useCallback(
+    (commentId) => {
+      setCollapsedComments((prev) => {
+        const newCollapsed = { ...prev };
+        newCollapsed[commentId] = !newCollapsed[commentId];
 
-  const totalVisibleComments = useMemo(() => {
-    return comments.filter((comment) => comment.visible).length;
-  }, [comments]);
+        // Find the target comment's depth
+        const targetDepth = commentDepthMap[commentId];
 
-  const isEndReached = visibleItems.length >= totalVisibleComments;
+        // Start from the comment's index
+        const targetIndex = initialComments.findIndex(
+          (c) => c.id === commentId
+        );
+        const visible = initialComments.slice(0, targetIndex + 1);
 
-  const handleOnEndReached = useCallback(() => {
-    setVisibleComments((prev) => prev + CONFIG.COMMENTS_PER_LOAD);
-  }, []);
+        // Process only comments after the toggled comment
+        let isSkipping = newCollapsed[commentId];
+        let skipUntilDepth = targetDepth;
 
-  const windowSize = visibleItems?.length >= 50 ? visibleItems.length / 4 : 50;
+        for (let i = targetIndex + 1; i < initialComments.length; i++) {
+          const comment = initialComments[i];
 
+          if (comment.depth <= targetDepth) {
+            isSkipping = false;
+            skipUntilDepth = -1;
+          }
+
+          if (!isSkipping) {
+            if (newCollapsed[comment.id]) {
+              isSkipping = true;
+              skipUntilDepth = comment.depth;
+            }
+            visible.push(comment);
+          } else if (comment.depth <= skipUntilDepth) {
+            isSkipping = false;
+            skipUntilDepth = -1;
+            visible.push(comment);
+          }
+        }
+
+        setComments(visible);
+        return newCollapsed;
+      });
+    },
+    [initialComments, setComments, commentDepthMap]
+  );
+
+  // Rest of the component remains the same...
   const keyExtractor = useCallback((item) => item.id.toString(), []);
 
   const renderItem = useCallback(
     ({ item }) => (
       <CommentItem
-        ancestors={item.ancestors}
         id={item.id}
         depth={item.depth}
         user={item.author}
-        totalReplies={item.number_of_replies}
         timestamp={item.created_at}
         comment={item.text}
-        collapsedParent={item.collapsedParent}
+        isCollapsed={!!collapsedComments[item.id]}
+        onToggleCollapse={toggleCollapseAndUpdateComments}
       />
     ),
-    []
+    [toggleCollapseAndUpdateComments, collapsedComments]
   );
 
-  if (isLoading) return <ActivityIndicator />;
+  const memoizedVisibleComments = useMemo(() => comments, [comments]);
 
+  if (isLoading) return <ActivityIndicator />;
   if (isError) return <Text style={[defaultStyles.lbError]}>ERROR</Text>;
 
   return (
     <View style={styles.mainContainer}>
       <FlatList
-        removeClippedSubviews={true}
-        decelerationRate="fast"
-        windowSize={3}
-        maxToRenderPerBatch={10}
+        initialNumToRender={20}
+        maxToRenderPerBatch={20}
+        updateCellsBatchingPeriod={50}
+        windowSize={21}
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <StoryHeader
             url={data.url}
@@ -80,20 +110,19 @@ function StoryDetails({ id }) {
         }
         ListFooterComponent={
           <View>
-            {isEndReached ? (
+            {false ? (
               <Separator style={defaultStyles.bgPrimary} height={25} />
             ) : (
-              <ActivityIndicator size="small" isEndReached={isEndReached} />
+              <ActivityIndicator size="small" isEndReached={false} />
             )}
           </View>
         }
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
         }
-        data={visibleItems}
+        data={memoizedVisibleComments}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
-        onEndReached={handleOnEndReached}
       />
     </View>
   );
