@@ -5,10 +5,10 @@ const light = StyleSheet.create({
     backgroundColor: '#F8FAFC',
   },
   bgSecondary: {
-    backgroundColor: '#F1F5F9',
+    backgroundColor: '#DFE1E3',
   },
   bgTertiary: {
-    backgroundColor: '#F8FAFC',
+    backgroundColor: '#C6C8CA',
   },
   bgSuccess: {
     backgroundColor: '#D2F9D8',
@@ -105,10 +105,10 @@ const dark = StyleSheet.create({
     backgroundColor: '#000000',
   },
   bgSecondary: {
-    backgroundColor: '#1E1C1C',
+    backgroundColor: '#1a1a1a',
   },
   bgTertiary: {
-    backgroundColor: '#2E2C2C',
+    backgroundColor: '#333333',
   },
   bgSuccess: {
     backgroundColor: '#30D158',

@@ -11,7 +11,6 @@ function HTMLRenderer({ content }) {
   const tagsStyles = {
     body: {
       color: defaultStyles.lbPrimary.color,
-      textAlign: 'justify',
     },
   };
 

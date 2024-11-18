@@ -1,8 +1,13 @@
 import React, { memo, useMemo, useCallback, useState } from 'react';
-import { StyleSheet, View, LayoutAnimation } from 'react-native';
+import { StyleSheet, View, LayoutAnimation, Pressable } from 'react-native';
 
 import { BUTTON_LABELS } from '@config';
-import { Button } from '@components';
+import {
+  Button,
+  PressableHighlight,
+  PressableOpacity,
+  Separator,
+} from '@components';
 import { useStyles } from '@hooks';
 import { HTMLRenderer } from '@libs';
 import { getReadableDateFromUTC } from '@utils';
@@ -25,9 +30,11 @@ function CommentItem({
   const [isCollapsed, setIsCollapsed] = useState(isInitiallyCollapsed);
 
   const time = getReadableDateFromUTC(timestamp);
+  const isFirstComment = index === 0;
   const isFirstLevel = depth === 0;
   const indentation = useMemo(() => [...Array(depth).keys()], [depth]);
   const collapseLabel = isCollapsed ? 'Uncollapse' : 'Collapse';
+  const collapseIcon = isCollapsed ? 'maximize-outline' : 'minimize-outline';
 
   const handleUserPress = useCallback(() => {
     console.log(`Navigate to ${user}'s profile.`);
@@ -49,7 +56,7 @@ function CommentItem({
     console.log(`Comment has been saved.`);
   }, []);
 
-  const handleToggleCollapse = () => {
+  const _handleToggleCollapse = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     if (isCollapsed) {
       onRestore(id, index);
@@ -64,7 +71,7 @@ function CommentItem({
 
   return (
     <View style={[styles.mainContainer]}>
-      {indentation.map((value, index) => (
+      {indentation.map((_, index) => (
         <View
           key={index}
           style={[
@@ -74,14 +81,19 @@ function CommentItem({
           ]}
         />
       ))}
-
       <View style={styles.commentWrapper}>
-        <View style={styles.topDetailsContainer}>
+        {!isFirstComment && isFirstLevel && (
+          <Separator color={defaultStyles.bgTertiary.color} />
+        )}
+        <Pressable
+          style={styles.topDetailsContainer}
+          onPress={_handleToggleCollapse}
+        >
           <Button
             variant={'icon-label'}
             size="small"
             labelColor={defaultStyles.lbTertiary.color}
-            label={user + ' ' + id}
+            label={user}
             icon={'person-circle-outline'}
             onPress={handleUserPress}
           />
@@ -93,15 +105,7 @@ function CommentItem({
             icon={'time-outline'}
             onPress={handleTimePress}
           />
-          <Button
-            // variant={'icon-label'}
-            size="small"
-            labelColor={defaultStyles.lbTertiary.color}
-            label={collapseLabel}
-            icon={'time-outline'}
-            onPress={handleToggleCollapse}
-          />
-        </View>
+        </Pressable>
         {!isCollapsed && (
           <View style={[styles.commentContainer]}>
             <HTMLRenderer content={comment} />
@@ -141,7 +145,7 @@ function CommentItem({
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    marginHorizontal: 6,
+    marginHorizontal: 12,
     flexDirection: 'row',
   },
   mainContainerCollapsed: {
@@ -155,7 +159,7 @@ const styles = StyleSheet.create({
   },
   topDetailsContainer: {
     flex: 1,
-    paddingVertical: 5,
+    paddingVertical: 8,
     flexDirection: 'row',
     justifyContent: 'flex-start',
   },
@@ -168,7 +172,7 @@ const styles = StyleSheet.create({
     paddingLeft: 6,
   },
   bottomDetailsContainer: {
-    paddingVertical: 5,
+    paddingVertical: 8,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end',

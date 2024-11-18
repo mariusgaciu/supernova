@@ -11,9 +11,12 @@ import {
   ChevronCollapseOutline,
   ChevronExpandOutline,
   DiceOutline,
+  ExternalLinkFill,
   ExternalLinkOutline,
   FitnessOutline,
   HeartOutline,
+  MaximizeOutline,
+  MinimiseOutline,
   NewspaperFill,
   NewspaperOutline,
   NotificationsFill,
@@ -42,9 +45,12 @@ const icons = {
   'chevron-collapse-outline': ChevronCollapseOutline,
   'chevron-expand-outline': ChevronExpandOutline,
   'dice-outline': DiceOutline,
+  'external-link-fill': ExternalLinkFill,
   'external-link-outline': ExternalLinkOutline,
   'fitness-outline': FitnessOutline,
   'heart-outline': HeartOutline,
+  'maximize-outline': MaximizeOutline,
+  'minimize-outline': MinimiseOutline,
   'newspaper-fill': NewspaperFill,
   'newspaper-outline': NewspaperOutline,
   'notifications-fill': NotificationsFill,
@@ -62,7 +68,7 @@ const icons = {
 /**
  * Get an SVG icon based on the given name, size, and color.
  * @param {Object} props
- * @param { 'bookmark-outline' | 'arrow-undo-outline' | 'arrow-up-circle-fill' | 'arrow-up-circle-outline' | 'arrow-up-outline' | 'caret-up-outline' | 'chat-box-outline' | 'chat-bubble-outline' | 'chevron-collapse-outline' | 'chevron-expand-outline' | 'external-link-outline' | 'fitness-outline' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
+ * @param { 'bookmark-outline' | 'arrow-undo-outline' | 'arrow-up-circle-fill' | 'arrow-up-circle-outline' | 'arrow-up-outline' | 'caret-up-outline' | 'chat-box-outline' | 'chat-bubble-outline' | 'chevron-collapse-outline' | 'chevron-expand-outline' | 'external-link-fill' | 'external-link-outline' | 'fitness-outline' | 'heart-outline' | 'maximize-outline' | 'minimize-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
  * @param {number} props.size - The size of the icon in pixels.
  * @param {string} props.color - The color of the icon.
  */

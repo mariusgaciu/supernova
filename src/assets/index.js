@@ -9,9 +9,12 @@ import SVGChatBubbleOutline from './icons/chatbubble-outline.svg';
 import SVGChevronCollapseOutline from './icons/chevron-collapse-outline.svg';
 import SVGChevronExpandOutline from './icons/chevron-expand-outline.svg';
 import SVGDiceOutline from './icons/dice-outline.svg';
+import SVGExternalLinkFill from './icons/external-link-fill.svg';
 import SVGExternalLinkOutline from './icons/external-link-outline.svg';
 import SVGFitnessOutline from './icons/fitness-outline.svg';
 import SVGHeartOutline from './icons/heart-outline.svg';
+import SVGMaximizeOutline from './icons/maximize-outline.svg';
+import SVGMinimizeOOutline from './icons/minimize-outline.svg';
 import SVGNewspaperFill from './icons/newspaper-fill.svg';
 import SVGNewspaperOutline from './icons/newspaper-outline.svg';
 import SVGNotificationsFill from './icons/notifications-fill.svg';
@@ -50,9 +53,12 @@ export {
   SVGChevronCollapseOutline as ChevronCollapseOutline,
   SVGChevronExpandOutline as ChevronExpandOutline,
   SVGDiceOutline as DiceOutline,
+  SVGExternalLinkFill as ExternalLinkFill,
   SVGExternalLinkOutline as ExternalLinkOutline,
   SVGFitnessOutline as FitnessOutline,
   SVGHeartOutline as HeartOutline,
+  SVGMaximizeOutline as MaximizeOutline,
+  SVGMinimizeOOutline as MinimiseOutline,
   SVGNewspaperFill as NewspaperFill,
   SVGNewspaperOutline as NewspaperOutline,
   SVGNotificationsFill as NotificationsFill,

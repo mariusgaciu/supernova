@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { linkHelpers, getReadableDateFromUnix, stringHelpers } from '@utils';
 import { HTMLRenderer } from '@libs';
-import { Button, PressableOpacity } from '@components';
+import { Button, PressableOpacity, Separator } from '@components';
 import { useStyles } from '@hooks';
 import { Icon } from '@libs';
 
@@ -55,7 +55,7 @@ function StoryHeader({
           <Text style={[defaultStyles.lbPrimary, defaultStyles.title3]}>
             {titleWithoutPrefix}
             <View style={{ paddingBottom: 2, paddingLeft: 5 }}>
-              <Icon name="external-link-outline" size={12} />
+              <Icon name="external-link-fill" size={12} />
             </View>
           </Text>
         </PressableOpacity>
@@ -104,7 +104,7 @@ function StoryHeader({
 const styles = StyleSheet.create({
   mainContainer: {
     width: '100%',
-    paddingHorizontal: 4,
+    paddingHorizontal: 10,
     paddingVertical: '2%',
     rowGap: 8,
     borderBottomWidth: 2,

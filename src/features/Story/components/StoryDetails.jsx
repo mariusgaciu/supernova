@@ -23,7 +23,7 @@ function StoryDetails({ storyId }) {
     cleanupCommentsState,
   } = useStoreComments();
 
-  const handleCollapseComments = useCallback(
+  const _handleCollapseComments = useCallback(
     (commentId, startIndex, depth) => {
       let noOfChildren = 0;
 
@@ -44,7 +44,7 @@ function StoryDetails({ storyId }) {
     [comments[storyId], setComments]
   );
 
-  const handleRestoreComments = useCallback(
+  const _handleRestoreComments = useCallback(
     (commentId, startIndex) => {
       const restoredComments = collapsedChildren[commentId];
       if (!restoredComments) return;
@@ -67,7 +67,7 @@ function StoryDetails({ storyId }) {
 
   const keyExtractor = useCallback(
     (item) => item.id.toString(),
-    [handleCollapseComments]
+    [_handleCollapseComments]
   );
 
   const renderItem = useCallback(
@@ -80,11 +80,11 @@ function StoryDetails({ storyId }) {
         timestamp={item.created_at}
         comment={item.text}
         totalChildren={item.totalChildren}
-        onCollapse={handleCollapseComments}
-        onRestore={handleRestoreComments}
+        onCollapse={_handleCollapseComments}
+        onRestore={_handleRestoreComments}
       />
     ),
-    [handleCollapseComments]
+    [_handleCollapseComments]
   );
 
   if (isLoading) return <ActivityIndicator />;
@@ -94,10 +94,7 @@ function StoryDetails({ storyId }) {
     <View style={styles.mainContainer}>
       <FlatList
         initialNumToRender={10}
-        // maxToRenderPerBatch={20}
-        // updateCellsBatchingPeriod={50}
         windowSize={5}
-        // showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <StoryHeader
             url={data.url}
@@ -109,15 +106,7 @@ function StoryDetails({ storyId }) {
             score={data.points}
           />
         }
-        ListFooterComponent={
-          <View>
-            {false ? (
-              <Separator style={defaultStyles.bgPrimary} height={25} />
-            ) : (
-              <ActivityIndicator size="small" isEndReached={false} />
-            )}
-          </View>
-        }
+        ListFooterComponent={<Separator style={defaultStyles.bgSecondary} />}
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
         }
