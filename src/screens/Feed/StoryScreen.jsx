@@ -3,9 +3,9 @@ import React from 'react';
 import { StoryDetails } from '@features/Story';
 
 function StoryScreen({ route }) {
-  const id = route.params.id;
+  const storyId = route.params.storyId;
 
-  return <StoryDetails id={id} />;
+  return <StoryDetails storyId={storyId} />;
 }
 
 export default StoryScreen;

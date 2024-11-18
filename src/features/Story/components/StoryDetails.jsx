@@ -1,90 +1,91 @@
-import React, { useCallback, useState, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { useStoreComments } from '../services/store';
+import { useFocusEffect } from '@react-navigation/native';
+
 import { ActivityIndicator, Separator, RefreshControl } from '@components';
 import StoryHeader from './StoryHeader';
 import CommentItem from './CommentItem';
 import { useFetchStoryDetails } from '../hooks/useFetchStoryDetails';
 import { useStyles } from '@hooks';
+import { useStoreComments } from '../services/store';
 
-function StoryDetails({ id }) {
+function StoryDetails({ storyId }) {
   const { defaultStyles } = useStyles();
+  const { data, isLoading, isRefreshing, isError, lastRefreshed, refresh } =
+    useFetchStoryDetails({ storyId });
+
   const {
     comments,
-    initialComments,
-    commentsDepthMap: commentDepthMap,
+    collapsedChildren,
     setComments,
+    addCollapsedChildren,
+    removeCollapsedChildren,
+    cleanupCommentsState,
   } = useStoreComments();
-  const [collapsedComments, setCollapsedComments] = useState({});
-  const { data, isLoading, isRefreshing, isError, lastRefreshed, refresh } =
-    useFetchStoryDetails({ id });
 
-  const toggleCollapseAndUpdateComments = useCallback(
-    (commentId) => {
-      setCollapsedComments((prev) => {
-        const newCollapsed = { ...prev };
-        newCollapsed[commentId] = !newCollapsed[commentId];
+  const handleCollapseComments = useCallback(
+    (commentId, startIndex, depth) => {
+      let noOfChildren = 0;
 
-        // Find the target comment's depth
-        const targetDepth = commentDepthMap[commentId];
-
-        // Start from the comment's index
-        const targetIndex = initialComments.findIndex(
-          (c) => c.id === commentId
-        );
-        const visible = initialComments.slice(0, targetIndex + 1);
-
-        // Process only comments after the toggled comment
-        let isSkipping = newCollapsed[commentId];
-        let skipUntilDepth = targetDepth;
-
-        for (let i = targetIndex + 1; i < initialComments.length; i++) {
-          const comment = initialComments[i];
-
-          if (comment.depth <= targetDepth) {
-            isSkipping = false;
-            skipUntilDepth = -1;
-          }
-
-          if (!isSkipping) {
-            if (newCollapsed[comment.id]) {
-              isSkipping = true;
-              skipUntilDepth = comment.depth;
-            }
-            visible.push(comment);
-          } else if (comment.depth <= skipUntilDepth) {
-            isSkipping = false;
-            skipUntilDepth = -1;
-            visible.push(comment);
-          }
+      for (let i = startIndex + 1; i < comments[storyId].length; i++) {
+        if (comments[storyId][i].depth <= depth) {
+          // Break if we reach a comment with the same depth level
+          break;
         }
+        noOfChildren++;
+      }
 
-        setComments(visible);
-        return newCollapsed;
-      });
+      const prevComments = [...comments[storyId]];
+      const removedComments = prevComments.splice(startIndex + 1, noOfChildren);
+
+      setComments(storyId, prevComments);
+      addCollapsedChildren(commentId, removedComments);
     },
-    [initialComments, setComments, commentDepthMap]
+    [comments[storyId], setComments]
   );
 
-  // Rest of the component remains the same...
-  const keyExtractor = useCallback((item) => item.id.toString(), []);
+  const handleRestoreComments = useCallback(
+    (commentId, startIndex) => {
+      const restoredComments = collapsedChildren[commentId];
+      if (!restoredComments) return;
+
+      const prevComments = [...comments[storyId]];
+      prevComments.splice(startIndex + 1, 0, ...restoredComments); // Insert them back
+      setComments(storyId, prevComments);
+      removeCollapsedChildren(commentId);
+    },
+    [comments[storyId], collapsedChildren, setComments]
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        cleanupCommentsState(storyId);
+      };
+    }, [])
+  );
+
+  const keyExtractor = useCallback(
+    (item) => item.id.toString(),
+    [handleCollapseComments]
+  );
 
   const renderItem = useCallback(
-    ({ item }) => (
+    ({ item, index }) => (
       <CommentItem
+        index={index}
         id={item.id}
         depth={item.depth}
         user={item.author}
         timestamp={item.created_at}
         comment={item.text}
-        isCollapsed={!!collapsedComments[item.id]}
-        onToggleCollapse={toggleCollapseAndUpdateComments}
+        totalChildren={item.totalChildren}
+        onCollapse={handleCollapseComments}
+        onRestore={handleRestoreComments}
       />
     ),
-    [toggleCollapseAndUpdateComments, collapsedComments]
+    [handleCollapseComments]
   );
-
-  const memoizedVisibleComments = useMemo(() => comments, [comments]);
 
   if (isLoading) return <ActivityIndicator />;
   if (isError) return <Text style={[defaultStyles.lbError]}>ERROR</Text>;
@@ -92,11 +93,11 @@ function StoryDetails({ id }) {
   return (
     <View style={styles.mainContainer}>
       <FlatList
-        initialNumToRender={20}
-        maxToRenderPerBatch={20}
-        updateCellsBatchingPeriod={50}
-        windowSize={21}
-        showsVerticalScrollIndicator={false}
+        initialNumToRender={10}
+        // maxToRenderPerBatch={20}
+        // updateCellsBatchingPeriod={50}
+        windowSize={5}
+        // showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <StoryHeader
             url={data.url}
@@ -120,7 +121,7 @@ function StoryDetails({ id }) {
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
         }
-        data={memoizedVisibleComments}
+        data={comments[storyId]}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
       />

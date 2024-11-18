@@ -12,6 +12,7 @@ import {
   ChevronExpandOutline,
   DiceOutline,
   FitnessOutline,
+  LinkExternalOutline,
   HeartOutline,
   NewspaperFill,
   NewspaperOutline,
@@ -42,6 +43,7 @@ const icons = {
   'chevron-expand-outline': ChevronExpandOutline,
   'dice-outline': DiceOutline,
   'fitness-outline': FitnessOutline,
+  'link-external-outline': LinkExternalOutline,
   'heart-outline': HeartOutline,
   'newspaper-fill': NewspaperFill,
   'newspaper-outline': NewspaperOutline,
@@ -60,11 +62,11 @@ const icons = {
 /**
  * Get an SVG icon based on the given name, size, and color.
  * @param {Object} props
- * @param { 'bookmark-outline' | 'arrow-undo-outline' | 'arrow-up-circle-fill' | 'arrow-up-circle-outline' | 'arrow-up-outline' | 'caret-up-outline' | 'chat-box-outline' | 'chat-bubble-outline' | 'chevron-collapse-outline' | 'chevron-expand-outline' | 'fitness-outline' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
+ * @param { 'bookmark-outline' | 'arrow-undo-outline' | 'arrow-up-circle-fill' | 'arrow-up-circle-outline' | 'arrow-up-outline' | 'caret-up-outline' | 'chat-box-outline' | 'chat-bubble-outline' | 'chevron-collapse-outline' | 'chevron-expand-outline' | 'fitness-outline' | 'link-external-outside' | 'heart-outline' | 'newspaper-fill' | 'newspaper-outline' | 'notifications-fill' | 'notifications-outline' | 'person-circle-outline' | 'person-fill' | 'person-outline' | 'search-fill' | 'search-outline' | 'star-fill' | 'star-outline' | 'time-outline' } props.name - The type of message to retrieve.
  * @param {number} props.size - The size of the icon in pixels.
  * @param {string} props.color - The color of the icon.
  */
-const Icon = ({ name = 'dice-outline', size = 18, color }) => {
+const Icon = ({ name = 'link-external-outline', size = 18, color }) => {
   const { defaultStyles } = useStyles();
 
   const SVGIcon = icons[name];

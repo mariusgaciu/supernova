@@ -1,35 +1,33 @@
-import React, { memo, useMemo, useCallback } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  LayoutAnimation,
-} from 'react-native';
+import React, { memo, useMemo, useCallback, useState } from 'react';
+import { StyleSheet, View, LayoutAnimation } from 'react-native';
 
 import { BUTTON_LABELS } from '@config';
 import { Button } from '@components';
 import { useStyles } from '@hooks';
 import { HTMLRenderer } from '@libs';
 import { getReadableDateFromUTC } from '@utils';
+import { useStoreComments } from '../services/store';
 
 function CommentItem({
+  index,
   id,
   user,
   depth,
   timestamp,
   comment,
-  isCollapsed,
-  onToggleCollapse,
+  onCollapse,
+  onRestore,
 }) {
   const { defaultStyles } = useStyles();
+  const { collapsedComments, addCollapsedComment, removeCollapsedComment } =
+    useStoreComments();
+  const isInitiallyCollapsed = !!collapsedComments[id];
+  const [isCollapsed, setIsCollapsed] = useState(isInitiallyCollapsed);
 
   const time = getReadableDateFromUTC(timestamp);
   const isFirstLevel = depth === 0;
   const indentation = useMemo(() => [...Array(depth).keys()], [depth]);
   const collapseLabel = isCollapsed ? 'Uncollapse' : 'Collapse';
-
-  console.log('WHATABOUTME', id, isCollapsed);
 
   const handleUserPress = useCallback(() => {
     console.log(`Navigate to ${user}'s profile.`);
@@ -52,7 +50,16 @@ function CommentItem({
   }, []);
 
   const handleToggleCollapse = () => {
-    onToggleCollapse(id);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    if (isCollapsed) {
+      onRestore(id, index);
+      removeCollapsedComment(id);
+      setIsCollapsed((isCollapsedState) => !isCollapsedState);
+    } else if (!isCollapsed) {
+      onCollapse(id, index, depth);
+      addCollapsedComment(id);
+      setIsCollapsed((isCollapsedState) => !isCollapsedState);
+    }
   };
 
   return (

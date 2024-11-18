@@ -34,7 +34,7 @@ export const useFetchStories = ({ storyType }) => {
     queryFn: async ({ pageParam = 0 }) => {
       const idsToFetch = dataIds?.slice(pageParam, pageParam + itemsPerScroll);
       const stories = await Promise.all(
-        idsToFetch.map((id) => getStory({ id }))
+        idsToFetch.map((storyId) => getStory({ storyId }))
       );
       return stories;
     },

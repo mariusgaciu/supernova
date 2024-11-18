@@ -10,6 +10,7 @@ import SVGChevronCollapseOutline from './icons/chevron-collapse-outline.svg';
 import SVGChevronExpandOutline from './icons/chevron-expand-outline.svg';
 import SVGDiceOutline from './icons/dice-outline.svg';
 import SVGFitnessOutline from './icons/fitness-outline.svg';
+import SVGLinkExternalOutline from './icons/link-external-outline.svg';
 import SVGHeartOutline from './icons/heart-outline.svg';
 import SVGNewspaperFill from './icons/newspaper-fill.svg';
 import SVGNewspaperOutline from './icons/newspaper-outline.svg';
@@ -37,6 +38,8 @@ export const FontAsset = {
   FontMonoBold: require('./fonts/NotoSansMono-Bold.ttf'),
 };
 
+console.log('PRINT', SVGLinkExternalOutline);
+
 export {
   SVGArrowUndoOutline as ArrowUndoOutline,
   SVGArrowUpCircleFill as ArrowUpCircleFill,
@@ -50,6 +53,7 @@ export {
   SVGChevronExpandOutline as ChevronExpandOutline,
   SVGDiceOutline as DiceOutline,
   SVGFitnessOutline as FitnessOutline,
+  SVGLinkExternalOutline as LinkExternalOutline,
   SVGHeartOutline as HeartOutline,
   SVGNewspaperFill as NewspaperFill,
   SVGNewspaperOutline as NewspaperOutline,

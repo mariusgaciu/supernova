@@ -5,6 +5,8 @@ import { linkHelpers, getReadableDateFromUnix, stringHelpers } from '@utils';
 import { HTMLRenderer } from '@libs';
 import { Button } from '@components';
 import { useStyles } from '@hooks';
+import { Icon } from '@libs';
+import { LinkExternalOutline } from '@assets';
 
 function StoryHeader({
   url,

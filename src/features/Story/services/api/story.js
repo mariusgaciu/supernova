@@ -1,11 +1,13 @@
-export const getStory = async ({ id }) => {
+export const getStory = async ({ storyId }) => {
   try {
     const response = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${id}.json`
+      `https://hacker-news.firebaseio.com/v0/item/${storyId}.json`
     );
 
     if (!response.ok) {
-      throw new Error('Network response not ok.');
+      throw new Error(
+        `Network response not ok. - Story ID: ${storyId} - Fetching: getStory`
+      );
     }
 
     return response.json();
@@ -14,12 +16,16 @@ export const getStory = async ({ id }) => {
   }
 };
 
-export const getStoryDetails = async ({ id }) => {
+export const getStoryDetails = async ({ storyId }) => {
   try {
-    const response = await fetch(`http://hn.algolia.com/api/v1/items/${id}`);
+    const response = await fetch(
+      `http://hn.algolia.com/api/v1/items/${storyId}`
+    );
 
     if (!response.ok) {
-      throw new Error('Network response not ok');
+      throw new Error(
+        `Network response not ok. - Story ID: ${storyId} - Fetching: getStoryDetails`
+      );
     }
 
     return response.json();
@@ -35,7 +41,9 @@ export const getStories = async ({ storyType }) => {
     );
 
     if (!response.ok) {
-      throw new Error('Network response not ok.');
+      throw new Error(
+        `Network response not ok. - Story ID: ${storyTypec} - Fetching: getStories`
+      );
     }
 
     return response.json();

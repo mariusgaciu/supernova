@@ -31,7 +31,7 @@ function StoryList({ storyType }) {
     ({ item, index }) => (
       <StoryItem
         index={index}
-        id={item.id}
+        storyId={item.id}
         url={item?.url}
         title={item.title}
         user={item.by}

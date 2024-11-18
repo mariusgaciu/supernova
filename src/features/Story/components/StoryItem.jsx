@@ -10,7 +10,7 @@ import { useStyles } from '@hooks';
 
 function StoryItem({
   index,
-  id,
+  storyId,
   url,
   title,
   user,
@@ -33,9 +33,9 @@ function StoryItem({
     if (isJobStory) {
       linkHelpers.openUrl(url);
     } else {
-      navigation.navigate(SCREEN_NAME.STORY, { id });
+      navigation.navigate(SCREEN_NAME.STORY, { storyId });
     }
-    console.log(`Navigate to story ${id}`);
+    console.log(`Navigate to story ${storyId}`);
   };
 
   const _handleUserPress = () => {
@@ -44,7 +44,7 @@ function StoryItem({
 
   const _handleCommentPress = () => {
     // TODO: FUTURE - Pressing on this would navigate to story screen with reply comment/keyboard open.
-    console.log(`Navigate to story ${id}`);
+    console.log(`Navigate to story ${storyId}`);
   };
 
   const _handleTimePress = () => {
@@ -53,7 +53,7 @@ function StoryItem({
   };
 
   const _handleVotePress = () => {
-    console.log(`Story ${id} has been voted`);
+    console.log(`Story ${storyId} has been voted`);
   };
 
   return (
