@@ -3,10 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { linkHelpers, getReadableDateFromUnix, stringHelpers } from '@utils';
 import { HTMLRenderer } from '@libs';
-import { Button } from '@components';
+import { Button, PressableOpacity } from '@components';
 import { useStyles } from '@hooks';
 import { Icon } from '@libs';
-import { LinkExternalOutline } from '@assets';
 
 function StoryHeader({
   url,
@@ -24,11 +23,16 @@ function StoryHeader({
   const titleWithoutPrefix = stringHelpers.removeTitlePrefix(title);
   const readableTime = getReadableDateFromUnix(timestamp);
 
-  const handleUserPress = () => {
+  const _handleTitlePress = () => {
+    linkHelpers.openUrl(url);
+    console.log(`Browse to ${domain}`);
+  };
+
+  const _handleUserPress = () => {
     console.log(`Navigate to ${user}'s profile.`);
   };
 
-  const handleVotePress = () => {
+  const _handleVotePress = () => {
     console.log(`Upvote ${title}`);
   };
 
@@ -46,9 +50,16 @@ function StoryHeader({
           {titlePrefix}
         </Text>
       )}
-      <Text style={[defaultStyles.lbPrimary, defaultStyles.title3]}>
-        {titleWithoutPrefix}
-      </Text>
+      <View style={[styles.title]}>
+        <PressableOpacity onPress={_handleTitlePress}>
+          <Text style={[defaultStyles.lbPrimary, defaultStyles.title3]}>
+            {titleWithoutPrefix}
+            <View style={{ paddingBottom: 2, paddingLeft: 5 }}>
+              <Icon name="external-link-outline" size={12} />
+            </View>
+          </Text>
+        </PressableOpacity>
+      </View>
       {!!body && <HTMLRenderer content={body} />}
       <View style={styles.detailsContainer}>
         <View style={styles.detailsLeftContainer}>
@@ -58,7 +69,7 @@ function StoryHeader({
             labelColor={defaultStyles.lbTertiary.color}
             label={user}
             icon={'person-circle-outline'}
-            onPress={handleUserPress}
+            onPress={_handleUserPress}
           />
           <Button
             variant={'icon-label'}
@@ -83,7 +94,7 @@ function StoryHeader({
           labelColor={defaultStyles.lbTertiary.color}
           label={score}
           icon={'arrow-up-circle-outline'}
-          onPress={handleVotePress}
+          onPress={_handleVotePress}
         />
       </View>
     </View>
@@ -104,6 +115,9 @@ const styles = StyleSheet.create({
   },
   domainText: {
     textDecorationLine: 'underline',
+  },
+  title: {
+    flexDirection: 'row',
   },
   detailsContainer: {
     flexDirection: 'row',
