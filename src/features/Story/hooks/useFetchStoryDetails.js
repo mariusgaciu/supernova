@@ -19,6 +19,7 @@ export const useFetchStoryDetails = ({ storyId }) => {
     },
     select: (data) => {
       const [storyDetails, story] = data;
+
       function parseAndFlattenCommentsWithTotalChildren(comments, depth = 0) {
         return comments.reduce((acc, comment) => {
           const newComment = { ...comment, depth };
@@ -46,7 +47,7 @@ export const useFetchStoryDetails = ({ storyId }) => {
       return {
         ...storyDetails,
         children: flatten,
-        descendants: story.descendants,
+        descendants: story.descendants ?? null,
       };
     },
   });

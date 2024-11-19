@@ -30,7 +30,7 @@ function StoryItem({
 
   const _handleStoryPress = () => {
     // TODO: Long press, give
-    if (isJobStory) {
+    if (isJobStory && !!url) {
       linkHelpers.openUrl(url);
     } else {
       navigation.navigate(SCREEN_NAME.STORY, { storyId });

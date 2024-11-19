@@ -15,6 +15,7 @@ function StoryHeader({
   noOfComments,
   timestamp,
   score,
+  type,
 }) {
   const { defaultStyles } = useStyles();
 
@@ -22,6 +23,9 @@ function StoryHeader({
   const titlePrefix = stringHelpers.getTitlePrefix(title);
   const titleWithoutPrefix = stringHelpers.removeTitlePrefix(title);
   const readableTime = getReadableDateFromUnix(timestamp);
+  const isJobStory = type === 'job';
+
+  console.log('STORY TYPE', type, isJobStory);
 
   const _handleTitlePress = () => {
     linkHelpers.openUrl(url);
@@ -41,6 +45,7 @@ function StoryHeader({
       style={[
         styles.mainContainer,
         { borderColor: defaultStyles.primary.color },
+        isJobStory && { marginBottom: 50 },
       ]}
     >
       {(!!domain || !!titlePrefix) && (
@@ -71,14 +76,16 @@ function StoryHeader({
             icon={'person-circle-outline'}
             onPress={_handleUserPress}
           />
-          <Button
-            variant={'icon-label'}
-            size="small"
-            labelColor={defaultStyles.lbTertiary.color}
-            label={noOfComments}
-            icon={'chat-bubble-outline'}
-            disabled
-          />
+          {!isJobStory && (
+            <Button
+              variant={'icon-label'}
+              size="small"
+              labelColor={defaultStyles.lbTertiary.color}
+              label={noOfComments}
+              icon={'chat-bubble-outline'}
+              disabled
+            />
+          )}
           <Button
             variant={'icon-label'}
             size="small"
@@ -88,14 +95,16 @@ function StoryHeader({
             disabled
           />
         </View>
-        <Button
-          variant={'icon-label'}
-          size="small"
-          labelColor={defaultStyles.lbTertiary.color}
-          label={score}
-          icon={'arrow-up-circle-outline'}
-          onPress={_handleVotePress}
-        />
+        {!isJobStory && (
+          <Button
+            variant={'icon-label'}
+            size="small"
+            labelColor={defaultStyles.lbTertiary.color}
+            label={score}
+            icon={'arrow-up-circle-outline'}
+            onPress={_handleVotePress}
+          />
+        )}
       </View>
     </View>
   );

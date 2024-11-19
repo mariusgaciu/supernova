@@ -104,9 +104,14 @@ function StoryDetails({ storyId }) {
             noOfComments={data.descendants}
             timestamp={data.created_at_i}
             score={data.points}
+            type={data.type}
           />
         }
-        ListFooterComponent={<Separator style={defaultStyles.bgSecondary} />}
+        ListFooterComponent={
+          <Separator
+            style={[defaultStyles.bgSecondary, { marginBottom: 50 }]}
+          />
+        }
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={refresh} />
         }
