@@ -1,6 +1,8 @@
 import { Dimensions } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { useStyles } from '@hooks';
 import { FeedScreen } from '@screens';
 
 // TODO: Make this as dynamic user selectable
@@ -41,9 +43,15 @@ const Tab = createMaterialTopTabNavigator();
 
 const TabsTop = () => {
   const { height, width } = Dimensions.get('window');
+  const { top } = useSafeAreaInsets();
+  const { defaultStyles } = useStyles();
 
   return (
     <Tab.Navigator
+      style={{
+        paddingTop: top,
+        backgroundColor: defaultStyles.navigation.colors.card,
+      }}
       initialLayout={{
         height: height,
         width: width,

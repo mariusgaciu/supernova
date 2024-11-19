@@ -27,6 +27,7 @@ const TabsBottom = () => {
         name={TAB_NAME.FEED}
         options={{
           title: TAB_TITLE.FEED,
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <Icon
               name={focused ? 'newspaper-fill' : 'newspaper-outline'}

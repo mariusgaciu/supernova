@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as Sentry from '@sentry/react-native';
 import Constants from 'expo-constants';
 
@@ -28,10 +29,12 @@ function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <QueryClientProvider client={queryClient}>
-        <NavigationContainer theme={defaultStyles.navigation}>
-          <StatusBar style="auto" />
-          <NavMain />
-        </NavigationContainer>
+        <SafeAreaProvider>
+          <NavigationContainer theme={defaultStyles.navigation}>
+            <StatusBar style="auto" />
+            <NavMain />
+          </NavigationContainer>
+        </SafeAreaProvider>
       </QueryClientProvider>
     </GestureHandlerRootView>
   );
