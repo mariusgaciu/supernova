@@ -22,35 +22,51 @@ const light = StyleSheet.create({
   bgInfo: {
     backgroundColor: '#DAE7F1',
   },
-  lbPrimary: {
+  textDefault: {
     color: '#0F172A',
     textDecorationColor: '#0F172A',
   },
-  lbSecondary: {
+  textSubdued: {
     color: '#334155',
     textDecorationColor: '#334155',
   },
-  lbTertiary: {
+  textPlaceholder: {
     color: '#64748B',
     textDecorationColor: '#64748B',
   },
-  lbQuaternary: {
+  textDisabled: {
     color: '#CBD5E1',
     textDecorationColor: '#CBD5E1',
   },
-  lbSuccess: {
+  textDefaultInverse: {
+    color: '#F8FAFC',
+    textDecorationColor: '#F8FAFC',
+  },
+  textSubduedInverse: {
+    color: '#C6C8CA',
+    textDecorationColor: '#C6C8CA',
+  },
+  textPlaceholderInverse: {
+    color: '#959697',
+    textDecorationColor: '#959697',
+  },
+  textDisabledInverse: {
+    color: '#636465',
+    textDecorationColor: '#636465',
+  },
+  textSuccess: {
     color: '#34C759',
     textDecorationColor: '#34C759',
   },
-  lbWarning: {
+  textWarning: {
     color: '#FF9500',
     textDecorationColor: '#FF9500',
   },
-  lbError: {
+  textError: {
     color: '#FF3B30',
     textDecorationColor: '#FF3B30',
   },
-  lbInfo: {
+  textInfo: {
     color: '#007AFF',
     textDecorationColor: '#007AFF',
   },
@@ -61,10 +77,13 @@ const light = StyleSheet.create({
     color: 'rgba(60, 60, 67, 0.36)',
   },
   transparent: {
-    color: 'rgba(0,0,0,0.0',
+    color: 'rgba(0,0,0,0.0)',
   },
   border: {
-    borderColor: '#DCDADE',
+    borderColor: '#E4E4E7',
+  },
+  borderFocus: {
+    borderColor: '#A1A1A9',
   },
   borderSuccess: {
     borderColor: '#16B62F',
@@ -87,6 +106,7 @@ const light = StyleSheet.create({
   tertiary: {
     color: '#56B045',
   },
+  avatar: ['#118AB2', '#E9C46A', '#E76F51'],
   navigation: {
     dark: false,
     colors: {
@@ -105,7 +125,7 @@ const dark = StyleSheet.create({
     backgroundColor: '#000000',
   },
   bgSecondary: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#1A1A1A',
   },
   bgTertiary: {
     backgroundColor: '#333333',
@@ -122,35 +142,51 @@ const dark = StyleSheet.create({
   bgInfo: {
     backgroundColor: '#0A84FF',
   },
-  lbPrimary: {
+  textDefault: {
     color: '#F8FAFC',
     textDecorationColor: '#F8FAFC',
   },
-  lbSecondary: {
-    color: '#E2E8F0',
-    textDecorationColor: '#E2E8F0',
+  textSubdued: {
+    color: '#C6C8CA',
+    textDecorationColor: '#C6C8CA',
   },
-  lbTertiary: {
-    color: '#94A3B8',
-    textDecorationColor: '#94A3B8',
+  textPlaceholder: {
+    color: '#959697',
+    textDecorationColor: '#959697',
   },
-  lbQuaternary: {
-    color: '#475569',
-    textDecorationColor: '#475569',
+  textDisabled: {
+    color: '#636465',
+    textDecorationColor: '#636465',
   },
-  lbSuccess: {
+  textDefaultInverse: {
+    color: '#0F172A',
+    textDecorationColor: '#0F172A',
+  },
+  textSubduedInverse: {
+    color: '#334155',
+    textDecorationColor: '#334155',
+  },
+  textPlaceholderInverse: {
+    color: '#64748B',
+    textDecorationColor: '#64748B',
+  },
+  textDisabledInverse: {
+    color: '#CBD5E1',
+    textDecorationColor: '#CBD5E1',
+  },
+  textSuccess: {
     color: '#D2F9D8',
     textDecorationColor: '#D2F9D8',
   },
-  lbWarning: {
+  textWarning: {
     color: '#FFF5CC',
     textDecorationColor: '#FFF5CC',
   },
-  lbError: {
+  textError: {
     color: '#F5D6D6',
     textDecorationColor: '#F5D6D6',
   },
-  lbInfo: {
+  textInfo: {
     color: '#DAE7F1',
     textDecorationColor: '#DAE7F1',
   },
@@ -164,7 +200,10 @@ const dark = StyleSheet.create({
     color: 'rgba(0,0,0,0.0',
   },
   border: {
-    borderColor: '#1E1C1C',
+    borderColor: '#27272A',
+  },
+  borderFocus: {
+    borderColor: '#D4D4D8',
   },
   borderSuccess: {
     borderColor: '#16B62F',
@@ -187,12 +226,13 @@ const dark = StyleSheet.create({
   tertiary: {
     color: '#FC9303',
   },
+  avatar: ['#118AB2', '#E9C46A', '#E76F51'],
   navigation: {
     dark: true,
     colors: {
       primary: '#74C365',
       background: '#000000',
-      card: '#1E1C1C',
+      card: '#1A1A1A',
       text: '#F8FAFC',
       border: '#1E1C1C',
       notification: '#FF453A',

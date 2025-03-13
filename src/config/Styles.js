@@ -125,123 +125,123 @@ export const FontStyles = StyleSheet.create({
   },
   titleL: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 34,
+    fontSize: 32,
   },
   titleLB: {
     fontFamily: Fonts.fontBold,
-    fontSize: 34,
+    fontSize: 32,
   },
   title1: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 28,
+    fontSize: 26,
   },
   title1B: {
     fontFamily: Fonts.fontBold,
-    fontSize: 28,
+    fontSize: 26,
   },
   title2: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 22,
+    fontSize: 20,
   },
   title2B: {
     fontFamily: Fonts.fontBold,
-    fontSize: 22,
+    fontSize: 20,
   },
   title3: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 20,
+    fontSize: 18,
   },
   title3B: {
     fontFamily: Fonts.fontSemibold,
-    fontSize: 20,
+    fontSize: 18,
   },
   header: {
     fontFamily: Fonts.fontSemibold,
-    fontSize: 17,
+    fontSize: 15,
   },
   headerI: {
     fontFamily: Fonts.fontSemiboldItalic,
-    fontSize: 17,
+    fontSize: 15,
   },
   body: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 17,
+    fontSize: 15,
   },
   bodyB: {
     fontFamily: Fonts.fontSemibold,
-    fontSize: 17,
+    fontSize: 15,
   },
   bodyI: {
     fontFamily: Fonts.fontItalic,
-    fontSize: 17,
+    fontSize: 15,
   },
   bodyBI: {
     fontFamily: Fonts.fontSemiboldItalic,
-    fontSize: 17,
+    fontSize: 15,
   },
   subheader: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 15,
+    fontSize: 13,
   },
   subheaderB: {
     fontFamily: Fonts.fontSemibold,
-    fontSize: 15,
+    fontSize: 13,
   },
   subheaderI: {
     fontFamily: Fonts.fontItalic,
-    fontSize: 15,
+    fontSize: 13,
   },
   subheaderBI: {
     fontFamily: Fonts.fontSemiboldItalic,
-    fontSize: 15,
+    fontSize: 13,
   },
   footer: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 13,
+    fontSize: 11,
   },
   footerB: {
     fontFamily: Fonts.fontSemibold,
-    fontSize: 13,
+    fontSize: 11,
   },
   footerI: {
     fontFamily: Fonts.fontItalic,
-    fontSize: 13,
+    fontSize: 11,
   },
   footerBI: {
     fontFamily: Fonts.fontSemiboldItalic,
-    fontSize: 13,
+    fontSize: 11,
   },
   caption1: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 12,
+    fontSize: 10,
   },
   caption1B: {
     fontFamily: Fonts.fontMedium,
-    fontSize: 12,
+    fontSize: 10,
   },
   caption1I: {
     fontFamily: Fonts.fontItalic,
-    fontSize: 12,
+    fontSize: 10,
   },
   caption1BI: {
     fontFamily: Fonts.fontMediumItalic,
-    fontSize: 12,
+    fontSize: 10,
   },
   caption2: {
     fontFamily: Fonts.fontRegular,
-    fontSize: 11,
+    fontSize: 9,
   },
   caption2B: {
     fontFamily: Fonts.fontSemibold,
-    fontSize: 11,
+    fontSize: 9,
   },
   caption2I: {
     fontFamily: Fonts.fontItalic,
-    fontSize: 11,
+    fontSize: 9,
   },
   caption2BI: {
     fontFamily: Fonts.fontSemiboldItalic,
-    fontSize: 11,
+    fontSize: 9,
   },
   borderRadiusS: 6,
   borderRadiusM: 8,

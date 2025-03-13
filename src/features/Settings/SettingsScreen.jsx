@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { TempSetting } from '@features/Settings';
 
-function AccountScreen(props) {
+function SettingsScreen(props) {
   return (
     <View style={styles.mainContainer}>
       <Text>AccountScreen</Text>
@@ -16,4 +16,4 @@ const styles = StyleSheet.create({
   mainContainer: {},
 });
 
-export default AccountScreen;
+export default SettingsScreen;

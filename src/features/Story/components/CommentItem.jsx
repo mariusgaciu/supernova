@@ -2,12 +2,7 @@ import React, { memo, useMemo, useCallback, useState } from 'react';
 import { StyleSheet, View, LayoutAnimation, Pressable } from 'react-native';
 
 import { BUTTON_LABELS } from '@config';
-import {
-  Button,
-  PressableHighlight,
-  PressableOpacity,
-  Separator,
-} from '@components';
+import { Button, Separator } from '@components';
 import { useStyles } from '@hooks';
 import { HTMLRenderer } from '@libs';
 import { getReadableDateFromUTC } from '@utils';
@@ -83,7 +78,7 @@ function CommentItem({
       ))}
       <View style={styles.commentWrapper}>
         {!isFirstComment && isFirstLevel && (
-          <Separator color={defaultStyles.bgTertiary.color} />
+          <Separator style={defaultStyles.bgSecondary} />
         )}
         <Pressable
           style={styles.topDetailsContainer}
@@ -92,7 +87,7 @@ function CommentItem({
           <Button
             variant={'icon-label'}
             size="small"
-            labelColor={defaultStyles.lbTertiary.color}
+            labelColor={defaultStyles.textPlaceholder.color}
             label={user}
             icon={'person-circle-outline'}
             onPress={handleUserPress}
@@ -100,7 +95,7 @@ function CommentItem({
           <Button
             variant={'icon-label'}
             size="small"
-            labelColor={defaultStyles.lbTertiary.color}
+            labelColor={defaultStyles.textPlaceholder.color}
             label={time}
             icon={'time-outline'}
             onPress={handleTimePress}
@@ -113,7 +108,7 @@ function CommentItem({
               <Button
                 variant={isFirstLevel ? 'icon-label' : 'icon'}
                 size="small"
-                labelColor={defaultStyles.lbTertiary.color}
+                labelColor={defaultStyles.textPlaceholder.color}
                 label={BUTTON_LABELS.SAVE}
                 icon={'bookmark-outline'}
                 onPress={handleSavePress}
@@ -121,7 +116,7 @@ function CommentItem({
               <Button
                 variant={isFirstLevel ? 'icon-label' : 'icon'}
                 size="small"
-                labelColor={defaultStyles.lbTertiary.color}
+                labelColor={defaultStyles.textPlaceholder.color}
                 label={BUTTON_LABELS.REPLY}
                 icon={'arrow-undo-outline'}
                 onPress={handleReplyPress}
@@ -129,7 +124,7 @@ function CommentItem({
               <Button
                 variant={isFirstLevel ? 'icon-label' : 'icon'}
                 size="small"
-                labelColor={defaultStyles.lbTertiary.color}
+                labelColor={defaultStyles.textPlaceholder.color}
                 label={'Vote'}
                 icon={'arrow-up-circle-outline'}
                 onPress={handleVotePress}

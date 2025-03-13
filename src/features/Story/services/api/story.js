@@ -1,8 +1,8 @@
 export const getStory = async ({ storyId }) => {
+  const url = `https://hacker-news.firebaseio.com/v0/item/${storyId}.json`;
+
   try {
-    const response = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${storyId}.json`
-    );
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(
@@ -17,10 +17,10 @@ export const getStory = async ({ storyId }) => {
 };
 
 export const getStoryDetails = async ({ storyId }) => {
+  const url = `http://hn.algolia.com/api/v1/items/${storyId}`;
+
   try {
-    const response = await fetch(
-      `http://hn.algolia.com/api/v1/items/${storyId}`
-    );
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(
@@ -35,10 +35,10 @@ export const getStoryDetails = async ({ storyId }) => {
 };
 
 export const getStories = async ({ storyType }) => {
+  const url = `https://hacker-news.firebaseio.com/v0/${storyType}.json`;
+
   try {
-    const response = await fetch(
-      `https://hacker-news.firebaseio.com/v0/${storyType}.json`
-    );
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(

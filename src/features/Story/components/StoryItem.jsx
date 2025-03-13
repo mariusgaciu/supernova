@@ -59,31 +59,33 @@ function StoryItem({
   return (
     <PressableHighlight
       style={styles.mainContainer}
-      underlayColor={defaultStyles.bgSecondary}
+      underlayColor={defaultStyles.bgSecondary.backgroundColor}
       onPress={_handleStoryPress}
     >
       <View style={[styles.subheader]}>
         <View style={[styles.positionContainer, defaultStyles.borderInfo]}>
-          <Text style={[defaultStyles.lbPrimary, defaultStyles.brandCaption2]}>
+          <Text
+            style={[defaultStyles.textDefault, defaultStyles.brandCaption2]}
+          >
             {index + 1}
           </Text>
         </View>
         <Text
           style={[
             styles.domainText,
-            defaultStyles.lbSecondary,
+            defaultStyles.textSubdued,
             defaultStyles.caption2,
           ]}
         >
           {domain}
         </Text>
-        <Text style={[defaultStyles.lbSecondary, defaultStyles.caption2]}>
+        <Text style={[defaultStyles.textSubdued, defaultStyles.caption2]}>
           {domain && titlePrefix ? '  •  ' : ''}
           {titlePrefix}
         </Text>
       </View>
       <View style={styles.titleContainer}>
-        <Text style={[defaultStyles.lbPrimary, defaultStyles.header]}>
+        <Text style={[defaultStyles.textDefault, defaultStyles.header]}>
           {titleWithoutPrefix}
         </Text>
       </View>
@@ -92,7 +94,7 @@ function StoryItem({
           <Button
             variant={'icon-label'}
             size="small"
-            labelColor={defaultStyles.lbTertiary.color}
+            labelColor={defaultStyles.textPlaceholder.color}
             label={user}
             icon={'person-circle-outline'}
             onPress={_handleUserPress}
@@ -101,7 +103,7 @@ function StoryItem({
             <Button
               variant={'icon-label'}
               size="small"
-              labelColor={defaultStyles.lbTertiary.color}
+              labelColor={defaultStyles.textPlaceholder.color}
               label={noOfComments}
               icon={'chat-bubble-outline'}
               onPress={_handleCommentPress}
@@ -110,7 +112,7 @@ function StoryItem({
           <Button
             variant={'icon-label'}
             size="small"
-            labelColor={defaultStyles.lbTertiary.color}
+            labelColor={defaultStyles.textPlaceholder.color}
             label={time}
             icon={'time-outline'}
             onPress={_handleTimePress}
@@ -121,7 +123,7 @@ function StoryItem({
             <Button
               variant={'icon-label'}
               size="small"
-              labelColor={defaultStyles.lbTertiary.color}
+              labelColor={defaultStyles.textPlaceholder.color}
               label={score}
               icon={'arrow-up-circle-outline'}
               onPress={_handleVotePress}

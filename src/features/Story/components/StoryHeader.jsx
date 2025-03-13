@@ -49,7 +49,7 @@ function StoryHeader({
       ]}
     >
       {(!!domain || !!titlePrefix) && (
-        <Text style={[defaultStyles.lbSecondary, defaultStyles.caption1]}>
+        <Text style={[defaultStyles.textSubdued, defaultStyles.caption1]}>
           <Text style={styles.domainText}>{domain}</Text>
           {domain && titlePrefix ? '  •  ' : ''}
           {titlePrefix}
@@ -57,7 +57,7 @@ function StoryHeader({
       )}
       <View style={[styles.title]}>
         <PressableOpacity onPress={_handleTitlePress}>
-          <Text style={[defaultStyles.lbPrimary, defaultStyles.title3]}>
+          <Text style={[defaultStyles.textDefault, defaultStyles.title3]}>
             {titleWithoutPrefix}
             <View style={{ paddingBottom: 2, paddingLeft: 5 }}>
               <Icon name="external-link-fill" size={12} />
@@ -71,7 +71,7 @@ function StoryHeader({
           <Button
             variant={'icon-label'}
             size="small"
-            labelColor={defaultStyles.lbTertiary.color}
+            labelColor={defaultStyles.textPlaceholder.color}
             label={user}
             icon={'person-circle-outline'}
             onPress={_handleUserPress}
@@ -80,7 +80,7 @@ function StoryHeader({
             <Button
               variant={'icon-label'}
               size="small"
-              labelColor={defaultStyles.lbTertiary.color}
+              labelColor={defaultStyles.textPlaceholder.color}
               label={noOfComments}
               icon={'chat-bubble-outline'}
               disabled
@@ -89,7 +89,7 @@ function StoryHeader({
           <Button
             variant={'icon-label'}
             size="small"
-            labelColor={defaultStyles.lbTertiary.color}
+            labelColor={defaultStyles.textPlaceholder.color}
             label={readableTime}
             icon={'time-outline'}
             disabled
@@ -99,7 +99,7 @@ function StoryHeader({
           <Button
             variant={'icon-label'}
             size="small"
-            labelColor={defaultStyles.lbTertiary.color}
+            labelColor={defaultStyles.textPlaceholder.color}
             label={score}
             icon={'arrow-up-circle-outline'}
             onPress={_handleVotePress}

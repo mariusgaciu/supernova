@@ -8,11 +8,15 @@ import SVGChatBoxOutline from './icons/chatbox-outline.svg';
 import SVGChatBubbleOutline from './icons/chatbubble-outline.svg';
 import SVGChevronCollapseOutline from './icons/chevron-collapse-outline.svg';
 import SVGChevronExpandOutline from './icons/chevron-expand-outline.svg';
+import SVGCloseCircleOutline from './icons/close-circle-outline.svg';
 import SVGDiceOutline from './icons/dice-outline.svg';
 import SVGExternalLinkFill from './icons/external-link-fill.svg';
 import SVGExternalLinkOutline from './icons/external-link-outline.svg';
+import SVGEyeOffOutline from './icons/eye-off-outline.svg';
+import SVGEyeOutline from './icons/eye-outline.svg';
 import SVGFitnessOutline from './icons/fitness-outline.svg';
 import SVGHeartOutline from './icons/heart-outline.svg';
+import SVGLockClosedOutline from './icons/lock-closed-outline.svg';
 import SVGMaximizeOutline from './icons/maximize-outline.svg';
 import SVGMinimizeOOutline from './icons/minimize-outline.svg';
 import SVGNewspaperFill from './icons/newspaper-fill.svg';
@@ -52,11 +56,15 @@ export {
   SVGChatBubbleOutline as ChatBubbleOutline,
   SVGChevronCollapseOutline as ChevronCollapseOutline,
   SVGChevronExpandOutline as ChevronExpandOutline,
+  SVGCloseCircleOutline as CloseCircleOutline,
   SVGDiceOutline as DiceOutline,
   SVGExternalLinkFill as ExternalLinkFill,
   SVGExternalLinkOutline as ExternalLinkOutline,
+  SVGEyeOffOutline as EyeOffOutline,
+  SVGEyeOutline as EyeOutline,
   SVGFitnessOutline as FitnessOutline,
   SVGHeartOutline as HeartOutline,
+  SVGLockClosedOutline as LockedClosedOutline,
   SVGMaximizeOutline as MaximizeOutline,
   SVGMinimizeOOutline as MinimiseOutline,
   SVGNewspaperFill as NewspaperFill,

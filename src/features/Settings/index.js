@@ -1,3 +1,4 @@
+import SettingsScreen from './SettingsScreen';
 import TempSetting from './components/TempSetting';
 
-export { TempSetting };
+export { SettingsScreen, TempSetting };

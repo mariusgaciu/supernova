@@ -4,12 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useStyles } from '@hooks';
 import { TAB_NAME, TAB_TITLE } from '@config';
 import TabsTop from './TabsTop';
-import {
-  AccountScreen,
-  FeedScreen,
-  NotificationsScreen,
-  SearchScreen,
-} from '@screens';
+import { NotificationsScreen } from '@screens';
+import { SearchScreen } from '@features/Search';
+import { ProfileScreen } from '@features/Profile';
 import { Icon } from '@libs';
 
 const Tab = createBottomTabNavigator();
@@ -49,7 +46,7 @@ const TabsBottom = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         component={NotificationsScreen}
         name={TAB_NAME.NOTIFICATIONS}
         options={{
@@ -61,12 +58,12 @@ const TabsBottom = () => {
             />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
-        name={TAB_NAME.ACCOUNT}
-        component={AccountScreen}
+        name={TAB_NAME.PROFILE}
+        component={ProfileScreen}
         options={{
-          title: TAB_TITLE.ACCOUNT,
+          title: TAB_TITLE.PROFILE,
           tabBarIcon: ({ color, focused }) => (
             <Icon
               name={focused ? 'person-fill' : 'person-outline'}

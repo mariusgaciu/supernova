@@ -9,11 +9,10 @@ function Separator({ style, color, height = 2, width }) {
   return (
     <View
       style={[
-        style,
-        !style?.backgroundColor && defaultStyles.bgSecondary,
         !!height && { height },
         !!width && { width },
         !!color && { backgroundColor: color },
+        style,
       ]}
     />
   );

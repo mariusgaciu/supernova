@@ -51,7 +51,12 @@ function StoryList({ storyType }) {
 
   return (
     <FlatList
-      ItemSeparatorComponent={<Separator style={{ marginLeft: 16 }} />}
+      ItemSeparatorComponent={
+        <Separator
+          color={defaultStyles.bgSecondary.backgroundColor}
+          style={{ marginHorizontal: 16, height: 4 }}
+        />
+      }
       ListFooterComponent={
         <ActivityIndicator size="small" isEndReached={!hasMoreItems} />
       }

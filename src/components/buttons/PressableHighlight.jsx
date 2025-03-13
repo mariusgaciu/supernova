@@ -4,7 +4,10 @@ import { Pressable } from 'react-native';
 function PressableHighlight({ style, underlayColor, children, onPress }) {
   return (
     <Pressable
-      style={({ pressed }) => [pressed && underlayColor, style]}
+      style={({ pressed }) => [
+        style,
+        pressed && { backgroundColor: underlayColor },
+      ]}
       onPress={onPress}
     >
       {children}
